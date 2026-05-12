@@ -16,7 +16,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const demoProfile = { nombre: 'Usuario Demo', email: 'demo@demo.com' }
 
   return (
-    <div className="field-bg min-h-screen">
+    <div style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <DashboardNav user={demoProfile} />
       <main className="max-w-7xl mx-auto px-4 py-8">
         {children}

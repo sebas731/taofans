@@ -10,6 +10,8 @@ interface Props {
   userId: string
 }
 
+const DISPLAY = { fontFamily: "'Barlow Condensed', sans-serif" }
+
 export default function FiguitasSelector({ initialFaltantes, userId }: Props) {
   const [faltantes, setFaltantes] = useState<Set<number>>(new Set(initialFaltantes))
   const [saving, setSaving] = useState(false)
@@ -37,92 +39,77 @@ export default function FiguitasSelector({ initialFaltantes, userId }: Props) {
     )
   }, [figuritasDelGrupo, busqueda])
 
-  const toggleFigurita = useCallback(
-    async (numero: number) => {
-      const supabase = createClient()
-      setSaving(true)
-
-      const nuevas = new Set(faltantes)
-      if (nuevas.has(numero)) {
-        nuevas.delete(numero)
-        await supabase
-          .from('figuritas_faltantes')
-          .delete()
-          .eq('user_id', userId)
-          .eq('numero', numero)
-      } else {
-        nuevas.add(numero)
-        await supabase
-          .from('figuritas_faltantes')
-          .upsert({ user_id: userId, numero })
-      }
-
-      setFaltantes(nuevas)
-      setSaving(false)
-    },
-    [faltantes, userId]
-  )
+  const toggleFigurita = useCallback(async (numero: number) => {
+    const supabase = createClient()
+    setSaving(true)
+    const nuevas = new Set(faltantes)
+    if (nuevas.has(numero)) {
+      nuevas.delete(numero)
+      await supabase.from('figuritas_faltantes').delete().eq('user_id', userId).eq('numero', numero)
+    } else {
+      nuevas.add(numero)
+      await supabase.from('figuritas_faltantes').upsert({ user_id: userId, numero })
+    }
+    setFaltantes(nuevas)
+    setSaving(false)
+  }, [faltantes, userId])
 
   const totalFaltantes = faltantes.size
+  const pct = Math.round(((todasLasFiguritas.length - totalFaltantes) / todasLasFiguritas.length) * 100)
 
   return (
     <>
       {/* Stats bar */}
-      <div className="glass rounded-xl p-4 mb-6 flex items-center justify-between flex-wrap gap-4">
-        <div className="flex items-center gap-6">
-          <div>
-            <p className="text-white/40 text-xs uppercase tracking-wider">Faltantes</p>
-            <p className="font-display text-3xl text-brand-400">{totalFaltantes}</p>
-          </div>
-          <div>
-            <p className="text-white/40 text-xs uppercase tracking-wider">Total álbum</p>
-            <p className="font-display text-3xl text-white">{todasLasFiguritas.length}</p>
-          </div>
-          <div>
-            <p className="text-white/40 text-xs uppercase tracking-wider">Completado</p>
-            <p className="font-display text-3xl text-green-400">
-              {Math.round(((todasLasFiguritas.length - totalFaltantes) / todasLasFiguritas.length) * 100)}%
-            </p>
-          </div>
+      <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 16, padding: '1rem 1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
+        <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap' }}>
+          {[
+            { label: 'Faltantes', value: totalFaltantes, color: '#E8003D' },
+            { label: 'Total álbum', value: todasLasFiguritas.length, color: 'var(--text-primary)' },
+            { label: 'Completado', value: `${pct}%`, color: '#00A859' },
+          ].map((s) => (
+            <div key={s.label}>
+              <p style={{ fontSize: 11, color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 2 }}>{s.label}</p>
+              <p style={{ ...DISPLAY, fontSize: 32, fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</p>
+            </div>
+          ))}
         </div>
-
-        <div className="flex gap-3">
-          {saving && <span className="text-white/40 text-sm self-center">Guardando...</span>}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          {saving && <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>Guardando...</span>}
           <button
             onClick={() => setShowModal(true)}
             disabled={totalFaltantes === 0}
-            className="btn-primary flex items-center gap-2"
+            className="btn-primary"
+            style={{ display: 'flex', alignItems: 'center', gap: 8 }}
           >
-            📩 Enviar pedido ({totalFaltantes})
+            📩 ENVIAR PEDIDO ({totalFaltantes})
           </button>
         </div>
       </div>
 
       {/* Grupo tabs */}
-      <div className="flex gap-2 overflow-x-auto pb-2 mb-4 scrollbar-none">
+      <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 8, marginBottom: 16 }}>
         {Object.keys(GRUPOS_MUNDIAL).map((grupo) => {
-          const grupoData = GRUPOS_MUNDIAL[grupo]
           const nums = new Set<number>()
-          grupoData.forEach(({ rango }) => {
+          GRUPOS_MUNDIAL[grupo].forEach(({ rango }) => {
             for (let i = rango[0]; i <= rango[1]; i++) nums.add(i)
           })
           const faltantesEnGrupo = [...nums].filter((n) => faltantes.has(n)).length
+          const activo = grupoActivo === grupo
 
           return (
             <button
               key={grupo}
               onClick={() => { setGrupoActivo(grupo); setBusqueda('') }}
-              className={`whitespace-nowrap px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                grupoActivo === grupo
-                  ? 'bg-brand-500 text-field-dark'
-                  : 'glass text-white/60 hover:text-white'
-              }`}
+              style={{
+                whiteSpace: 'nowrap', padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer', transition: 'all 0.15s',
+                background: activo ? '#FFE000' : 'var(--bg-card)',
+                color: activo ? '#080808' : 'var(--text-secondary)',
+                border: activo ? '1px solid #FFE000' : '1px solid var(--border)',
+              }}
             >
               {grupo}
               {faltantesEnGrupo > 0 && (
-                <span className={`ml-2 text-xs px-1.5 py-0.5 rounded-full ${
-                  grupoActivo === grupo ? 'bg-field-dark/30' : 'bg-brand-500/30 text-brand-300'
-                }`}>
+                <span style={{ marginLeft: 6, fontSize: 11, padding: '2px 6px', borderRadius: 99, background: activo ? '#080808' : '#E8003D', color: '#fff' }}>
                   {faltantesEnGrupo}
                 </span>
               )}
@@ -132,81 +119,75 @@ export default function FiguitasSelector({ initialFaltantes, userId }: Props) {
       </div>
 
       {/* Buscar */}
-      <div className="mb-4">
+      <div style={{ marginBottom: 16 }}>
         <input
           type="text"
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
           placeholder="Buscar por número o país..."
-          className="input-field max-w-xs"
+          style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, padding: '10px 16px', fontSize: 14, color: 'var(--text-primary)', outline: 'none', width: 280 }}
         />
       </div>
 
-      {/* Paises dentro del grupo */}
+      {/* Países */}
       {GRUPOS_MUNDIAL[grupoActivo]?.map(({ pais, rango }) => {
-        const figsPais = figuritasFiltradas.filter(
-          (f) => f.pais === pais && f.numero >= rango[0] && f.numero <= rango[1]
-        )
+        const figsPais = figuritasFiltradas.filter((f) => f.pais === pais && f.numero >= rango[0] && f.numero <= rango[1])
         if (figsPais.length === 0) return null
-
         const faltantesEnPais = figsPais.filter((f) => faltantes.has(f.numero)).length
+        const allSelected = figsPais.every((f) => faltantes.has(f.numero))
 
         return (
-          <div key={pais} className="mb-6">
-            <div className="flex items-center gap-3 mb-3">
-              <h3 className="font-display text-xl text-white">{pais}</h3>
-              <span className="text-white/30 text-sm">({rango[0]}–{rango[1]})</span>
+          <div key={pais} style={{ marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <h3 style={{ ...DISPLAY, fontSize: 22, fontWeight: 900, color: 'var(--text-primary)', textTransform: 'uppercase' }}>{pais}</h3>
+              <span style={{ fontSize: 12, color: 'var(--text-secondary)' }}>({rango[0]}–{rango[1]})</span>
               {faltantesEnPais > 0 && (
-                <span className="text-brand-400 text-sm font-medium">
-                  {faltantesEnPais} faltante{faltantesEnPais !== 1 ? 's' : ''}
-                </span>
+                <span style={{ fontSize: 12, color: '#E8003D', fontWeight: 600 }}>{faltantesEnPais} faltante{faltantesEnPais !== 1 ? 's' : ''}</span>
               )}
               <button
-                className="ml-auto text-xs text-white/30 hover:text-white/60 transition-colors"
                 onClick={() => {
                   const supabase = createClient()
-                  const allSelected = figsPais.every((f) => faltantes.has(f.numero))
                   const nuevas = new Set(faltantes)
                   if (allSelected) {
-                    figsPais.forEach((f) => {
-                      nuevas.delete(f.numero)
-                      supabase.from('figuritas_faltantes').delete().eq('user_id', userId).eq('numero', f.numero)
-                    })
+                    figsPais.forEach((f) => { nuevas.delete(f.numero); supabase.from('figuritas_faltantes').delete().eq('user_id', userId).eq('numero', f.numero) })
                   } else {
-                    figsPais.forEach((f) => {
-                      nuevas.add(f.numero)
-                      supabase.from('figuritas_faltantes').upsert({ user_id: userId, numero: f.numero })
-                    })
+                    figsPais.forEach((f) => { nuevas.add(f.numero); supabase.from('figuritas_faltantes').upsert({ user_id: userId, numero: f.numero }) })
                   }
                   setFaltantes(nuevas)
                 }}
+                style={{ marginLeft: 'auto', fontSize: 12, color: 'var(--text-secondary)', background: 'none', border: 'none', cursor: 'pointer' }}
               >
-                {figsPais.every((f) => faltantes.has(f.numero)) ? 'Deseleccionar todos' : 'Seleccionar todos'}
+                {allSelected ? 'Deseleccionar todos' : 'Seleccionar todos'}
               </button>
             </div>
 
-            <div className="grid grid-cols-8 sm:grid-cols-12 md:grid-cols-16 lg:grid-cols-20 gap-1.5">
-              {figsPais.map((f) => (
-                <button
-                  key={f.numero}
-                  onClick={() => toggleFigurita(f.numero)}
-                  className={`sticker-card aspect-square rounded-lg flex items-center justify-center text-xs font-bold transition-all ${
-                    faltantes.has(f.numero)
-                      ? 'bg-brand-500 text-field-dark selected'
-                      : 'glass text-white/50 hover:text-white hover:bg-white/10'
-                  }`}
-                  title={f.nombre}
-                >
-                  {f.numero}
-                </button>
-              ))}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(44px, 1fr))', gap: 6 }}>
+              {figsPais.map((f) => {
+                const sel = faltantes.has(f.numero)
+                return (
+                  <button
+                    key={f.numero}
+                    onClick={() => toggleFigurita(f.numero)}
+                    title={f.nombre}
+                    className="sticker-card"
+                    style={{
+                      aspectRatio: '1', borderRadius: 8, fontSize: 11, fontWeight: 700, cursor: 'pointer', border: 'none', transition: 'all 0.12s',
+                      background: sel ? '#FFE000' : 'var(--bg-card)',
+                      color: sel ? '#080808' : 'var(--text-secondary)',
+                      outline: sel ? '2px solid #FFE000' : `1px solid var(--border)`,
+                    }}
+                  >
+                    {f.numero}
+                  </button>
+                )
+              })}
             </div>
           </div>
         )
       })}
 
       {figuritasFiltradas.length === 0 && (
-        <div className="text-center text-white/40 py-12">
+        <div style={{ textAlign: 'center', color: 'var(--text-secondary)', padding: '3rem 0' }}>
           No se encontraron figuritas con ese criterio.
         </div>
       )}

@@ -25,9 +25,11 @@ export default async function DashboardPage() {
         </div>
       )}
       <div className="mb-8">
-        <h1 className="font-display text-5xl text-white">MIS FALTANTES</h1>
-        <p className="text-white/50 mt-1">
-          Hacé clic en cada figurita que te falta. Después enviá el pedido a tu vendedor.
+        <h1 style={{ ...{ fontFamily: "'Barlow Condensed', sans-serif" }, fontSize: 48, fontWeight: 900, color: 'var(--text-primary)', textTransform: 'uppercase' }}>
+          MIS FALTANTES
+        </h1>
+        <p style={{ color: 'var(--text-secondary)', marginTop: 4 }}>
+          Haz clic en cada figurita que te falta. Después envía el pedido a tu vendedor.
         </p>
       </div>
       <FiguitasSelector initialFaltantes={numerosFaltantes} userId="demo-user" />
