@@ -3,8 +3,9 @@
 import { useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
+// DESPUÉS
 interface Props {
-  faltantes: number[]
+  faltantes: string[]
   userId: string
   onClose: () => void
 }
@@ -21,7 +22,7 @@ export default function EnviarPedidoModal({ faltantes, userId, onClose }: Props)
   const textoPedido =
     `🎴 *Pedido de Figuritas - Mundial 2026*\n\n` +
     `Me faltan ${faltantes.length} figurita${faltantes.length !== 1 ? 's' : ''}:\n` +
-    `*Números:* ${faltantes.join(', ')}\n` +
+    `*Códigos:* ${faltantes.join(', ')}\n` +
     (mensaje ? `\n💬 ${mensaje}` : '')
 
   async function guardarPedido() {

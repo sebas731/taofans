@@ -1,88 +1,114 @@
 export interface Figurita {
-  numero: number
-  nombre: string
+  codigo: string
   pais: string
   grupo: string
+  especial?: boolean
 }
 
-export interface FiguitaFaltante {
-  id: string
-  user_id: string
-  numero: number
-  cantidad: number
-  created_at: string
-}
-
-export interface Pedido {
-  id: string
-  user_id: string
-  figuritas: number[]
-  mensaje: string
-  estado: 'pendiente' | 'procesado' | 'entregado'
-  created_at: string
-}
-
-export interface UserProfile {
-  id: string
+export interface Pais {
   nombre: string
-  email: string
-  whatsapp?: string
-  created_at: string
+  codigo: string
+  bandera: string
+  grupo: string
+  total: number
 }
 
-// Todos los stickers del álbum Mundial 2026 (estructura resumida, completa con los 670 aprox)
-export const GRUPOS_MUNDIAL: Record<string, { pais: string; rango: [number, number] }[]> = {
+export const GRUPOS: Record<string, Pais[]> = {
+  'Especiales': [
+    { nombre: 'FIFA World Cup', codigo: 'FWC', bandera: '🏆', grupo: 'Especiales', total: 19 },
+    { nombre: 'Coca-Cola',      codigo: 'CC',  bandera: '🥤', grupo: 'Especiales', total: 14 },
+  ],
   'Grupo A': [
-    { pais: 'Argentina', rango: [1, 20] },
-    { pais: 'Ecuador', rango: [21, 37] },
-    { pais: 'Canadá', rango: [38, 54] },
-    { pais: 'Chile', rango: [55, 71] },
+    { nombre: 'México',         codigo: 'MEX', bandera: '🇲🇽', grupo: 'Grupo A', total: 20 },
+    { nombre: 'Sudáfrica',      codigo: 'RSA', bandera: '🇿🇦', grupo: 'Grupo A', total: 20 },
+    { nombre: 'Corea del Sur',  codigo: 'KOR', bandera: '🇰🇷', grupo: 'Grupo A', total: 20 },
+    { nombre: 'Rep. Checa',     codigo: 'CZE', bandera: '🇨🇿', grupo: 'Grupo A', total: 20 },
   ],
   'Grupo B': [
-    { pais: 'Brasil', rango: [72, 91] },
-    { pais: 'Colombia', rango: [92, 108] },
-    { pais: 'México', rango: [109, 125] },
-    { pais: 'Paraguay', rango: [126, 142] },
+    { nombre: 'Canadá',         codigo: 'CAN', bandera: '🇨🇦', grupo: 'Grupo B', total: 20 },
+    { nombre: 'Bosnia',         codigo: 'BIH', bandera: '🇧🇦', grupo: 'Grupo B', total: 20 },
+    { nombre: 'Qatar',          codigo: 'QAT', bandera: '🇶🇦', grupo: 'Grupo B', total: 20 },
+    { nombre: 'Suiza',          codigo: 'SUI', bandera: '🇨🇭', grupo: 'Grupo B', total: 20 },
   ],
   'Grupo C': [
-    { pais: 'Alemania', rango: [143, 159] },
-    { pais: 'Portugal', rango: [160, 176] },
-    { pais: 'España', rango: [177, 193] },
-    { pais: 'Marruecos', rango: [194, 210] },
+    { nombre: 'Brasil',         codigo: 'BRA', bandera: '🇧🇷', grupo: 'Grupo C', total: 20 },
+    { nombre: 'Marruecos',      codigo: 'MAR', bandera: '🇲🇦', grupo: 'Grupo C', total: 20 },
+    { nombre: 'Haití',          codigo: 'HAI', bandera: '🇭🇹', grupo: 'Grupo C', total: 20 },
+    { nombre: 'Escocia',        codigo: 'SCO', bandera: '🏴󠁧󠁢󠁳󠁣󠁴󠁿', grupo: 'Grupo C', total: 20 },
   ],
   'Grupo D': [
-    { pais: 'Francia', rango: [211, 227] },
-    { pais: 'Inglaterra', rango: [228, 244] },
-    { pais: 'Países Bajos', rango: [245, 261] },
-    { pais: 'Senegal', rango: [262, 278] },
+    { nombre: 'Estados Unidos', codigo: 'USA', bandera: '🇺🇸', grupo: 'Grupo D', total: 20 },
+    { nombre: 'Paraguay',       codigo: 'PAR', bandera: '🇵🇾', grupo: 'Grupo D', total: 20 },
+    { nombre: 'Australia',      codigo: 'AUS', bandera: '🇦🇺', grupo: 'Grupo D', total: 20 },
+    { nombre: 'Turquía',        codigo: 'TUR', bandera: '🇹🇷', grupo: 'Grupo D', total: 20 },
   ],
   'Grupo E': [
-    { pais: 'Italia', rango: [279, 295] },
-    { pais: 'Croacia', rango: [296, 312] },
-    { pais: 'Japón', rango: [313, 329] },
-    { pais: 'Arabia Saudita', rango: [330, 346] },
+    { nombre: 'Alemania',       codigo: 'GER', bandera: '🇩🇪', grupo: 'Grupo E', total: 20 },
+    { nombre: 'Curazao',        codigo: 'CUW', bandera: '🇨🇼', grupo: 'Grupo E', total: 20 },
+    { nombre: 'Costa de Marfil',codigo: 'CIV', bandera: '🇨🇮', grupo: 'Grupo E', total: 20 },
+    { nombre: 'Ecuador',        codigo: 'ECU', bandera: '🇪🇨', grupo: 'Grupo E', total: 20 },
   ],
   'Grupo F': [
-    { pais: 'Uruguay', rango: [347, 363] },
-    { pais: 'Bolivia', rango: [364, 380] },
-    { pais: 'Costa Rica', rango: [381, 397] },
-    { pais: 'Australia', rango: [398, 414] },
+    { nombre: 'Países Bajos',   codigo: 'NED', bandera: '🇳🇱', grupo: 'Grupo F', total: 20 },
+    { nombre: 'Japón',          codigo: 'JPN', bandera: '🇯🇵', grupo: 'Grupo F', total: 20 },
+    { nombre: 'Suecia',         codigo: 'SWE', bandera: '🇸🇪', grupo: 'Grupo F', total: 20 },
+    { nombre: 'Túnez',          codigo: 'TUN', bandera: '🇹🇳', grupo: 'Grupo F', total: 20 },
   ],
-  'Especiales': [
-    { pais: 'Estadios', rango: [415, 430] },
-    { pais: 'Trofeos & Logos', rango: [431, 440] },
-    { pais: 'Brillantes', rango: [441, 460] },
+  'Grupo G': [
+    { nombre: 'Bélgica',        codigo: 'BEL', bandera: '🇧🇪', grupo: 'Grupo G', total: 20 },
+    { nombre: 'Egipto',         codigo: 'EGY', bandera: '🇪🇬', grupo: 'Grupo G', total: 20 },
+    { nombre: 'Irán',           codigo: 'IRN', bandera: '🇮🇷', grupo: 'Grupo G', total: 20 },
+    { nombre: 'Nueva Zelanda',  codigo: 'NZL', bandera: '🇳🇿', grupo: 'Grupo G', total: 20 },
+  ],
+  'Grupo H': [
+    { nombre: 'España',         codigo: 'ESP', bandera: '🇪🇸', grupo: 'Grupo H', total: 20 },
+    { nombre: 'Cabo Verde',     codigo: 'CPV', bandera: '🇨🇻', grupo: 'Grupo H', total: 20 },
+    { nombre: 'Arabia Saudita', codigo: 'KSA', bandera: '🇸🇦', grupo: 'Grupo H', total: 20 },
+    { nombre: 'Uruguay',        codigo: 'URU', bandera: '🇺🇾', grupo: 'Grupo H', total: 20 },
+  ],
+  'Grupo I': [
+    { nombre: 'Francia',        codigo: 'FRA', bandera: '🇫🇷', grupo: 'Grupo I', total: 20 },
+    { nombre: 'Senegal',        codigo: 'SEN', bandera: '🇸🇳', grupo: 'Grupo I', total: 20 },
+    { nombre: 'Irak',           codigo: 'IRQ', bandera: '🇮🇶', grupo: 'Grupo I', total: 20 },
+    { nombre: 'Noruega',        codigo: 'NOR', bandera: '🇳🇴', grupo: 'Grupo I', total: 20 },
+  ],
+  'Grupo J': [
+    { nombre: 'Argentina',      codigo: 'ARG', bandera: '🇦🇷', grupo: 'Grupo J', total: 20 },
+    { nombre: 'Argelia',        codigo: 'ALG', bandera: '🇩🇿', grupo: 'Grupo J', total: 20 },
+    { nombre: 'Austria',        codigo: 'AUT', bandera: '🇦🇹', grupo: 'Grupo J', total: 20 },
+    { nombre: 'Jordania',       codigo: 'JOR', bandera: '🇯🇴', grupo: 'Grupo J', total: 20 },
+  ],
+  'Grupo K': [
+    { nombre: 'Portugal',       codigo: 'POR', bandera: '🇵🇹', grupo: 'Grupo K', total: 20 },
+    { nombre: 'Rep. del Congo', codigo: 'COD', bandera: '🇨🇩', grupo: 'Grupo K', total: 20 },
+    { nombre: 'Uzbekistán',     codigo: 'UZB', bandera: '🇺🇿', grupo: 'Grupo K', total: 20 },
+    { nombre: 'Colombia',       codigo: 'COL', bandera: '🇨🇴', grupo: 'Grupo K', total: 20 },
+  ],
+  'Grupo L': [
+    { nombre: 'Inglaterra',     codigo: 'ENG', bandera: '🏴󠁧󠁢󠁥󠁮󠁧󠁿', grupo: 'Grupo L', total: 20 },
+    { nombre: 'Croacia',        codigo: 'CRO', bandera: '🇭🇷', grupo: 'Grupo L', total: 20 },
+    { nombre: 'Ghana',          codigo: 'GHA', bandera: '🇬🇭', grupo: 'Grupo L', total: 20 },
+    { nombre: 'Panamá',         codigo: 'PAN', bandera: '🇵🇦', grupo: 'Grupo L', total: 20 },
   ],
 }
 
-export function generarFiguritas(): Figurita[] {
+export function generarFiguritasAlbum(): Figurita[] {
   const figuritas: Figurita[] = []
-  Object.entries(GRUPOS_MUNDIAL).forEach(([grupo, paises]) => {
-    paises.forEach(({ pais, rango }) => {
-      for (let n = rango[0]; n <= rango[1]; n++) {
-        figuritas.push({ numero: n, nombre: `${pais} #${n}`, pais, grupo })
+  Object.entries(GRUPOS).forEach(([grupo, paises]) => {
+    paises.forEach((pais) => {
+      for (let n = 1; n <= pais.total; n++) {
+        figuritas.push({
+          codigo: `${pais.codigo}${n}`,
+          pais: pais.nombre,
+          grupo,
+          especial: grupo === 'Especiales',
+        })
       }
     })
   })
   return figuritas
 }
+
+// Compatibilidad con código anterior
+export const GRUPOS_MUNDIAL = GRUPOS
+export function generarFiguritas() { return generarFiguritasAlbum() }
