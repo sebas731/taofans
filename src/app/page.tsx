@@ -102,13 +102,13 @@ export default async function HomePage() {
 
           {/* Main headline */}
           <h1 style={{ ...DISPLAY, fontSize: 'clamp(72px, 12vw, 160px)', fontWeight: 900, lineHeight: 0.9, marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '-0.01em' }}>
-            <span style={{ display: 'block', color: '#fff' }}>COMPLETÁ</span>
+            <span style={{ display: 'block', color: '#fff' }}>COMPLETA</span>
             <span style={{ display: 'block', color: '#FFE000' }}>TU ÁLBUM</span>
             <span style={{ display: 'block', color: 'rgba(255,255,255,0.2)' }}>SIN VUELTAS.</span>
           </h1>
 
           <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.55)', maxWidth: 520, lineHeight: 1.7, marginBottom: '2.5rem' }}>
-            Marcá las figuritas que te faltan, elegí tu álbum y coordiná el pedido directo por WhatsApp. Rápido, fácil y con stock real.
+            Marca las figuritas que te faltan, elige tu álbum y coordina el pedido directo por WhatsApp. Rápido, fácil y con stock real.
           </p>
 
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
@@ -164,7 +164,7 @@ export default async function HomePage() {
       {/* ── MARQUEE TICKER ── */}
       <div style={{ background: '#FFE000', overflow: 'hidden', padding: '10px 0', borderTop: '1px solid #1E1E1E' }}>
         <div className="marquee-inner" style={{ color: '#080808', fontWeight: 700, fontSize: 13, letterSpacing: '0.12em', fontFamily: "'Barlow Condensed', sans-serif" }}>
-          {Array(6).fill('⚽ MUNDIAL 2026 · PANINI OFICIAL · FIGURITAS GARANTIZADAS · PEDÍ POR WHATSAPP · COMPLETÁ TU ÁLBUM · ').map((t, i) => (
+          {Array(6).fill('⚽ MUNDIAL 2026 · PANINI OFICIAL · FIGURITAS GARANTIZADAS · PÍDE POR WHATSAPP · COMPLETA TU ÁLBUM · ').map((t, i) => (
             <span key={i}>{t}</span>
           ))}
         </div>
@@ -177,7 +177,7 @@ export default async function HomePage() {
           <div style={{ marginBottom: '3rem' }}>
             <div style={{ ...DISPLAY, fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', color: '#FFE000', marginBottom: 8 }}>CAMPAÑAS ACTIVAS</div>
             <h2 style={{ ...DISPLAY, fontSize: 'clamp(48px, 7vw, 80px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 0.95, color: '#fff' }}>
-              ELEGÍ TU<br />ÁLBUM
+              ELIGE TU<br />ÁLBUM
             </h2>
           </div>
 
@@ -201,9 +201,9 @@ export default async function HomePage() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 1, background: '#1E1E1E', borderRadius: 16, overflow: 'hidden' }}>
             {[
-              { num: '01', icon: '📋', color: '#E8003D', titulo: 'Registrá tus faltantes', desc: 'Creá tu cuenta gratis, elegí el álbum y marcá una por una las figuritas que todavía no tenés. Tu lista se guarda automáticamente.' },
-              { num: '02', icon: '💬', color: '#FFE000', titulo: 'Enviá el pedido por WhatsApp', desc: 'Con un clic generamos el mensaje con todas tus figuritas y lo mandamos directo a nuestro WhatsApp para coordinar la entrega.' },
-              { num: '03', icon: '🏆', color: '#00C2E0', titulo: 'Completá tu álbum', desc: 'Coordinamos la entrega, te enviamos lo que necesitás y actualizás tu progreso. Así de simple y sin vueltas.' },
+              { num: '01', icon: '📋', color: '#E8003D', titulo: 'Registra tus faltantes', desc: 'Crea tu cuenta gratis, elige el álbum y marca una por una las figuritas que te faltan. Tu lista se guarda automáticamente.' },
+              { num: '02', icon: '💬', color: '#FFE000', titulo: 'Envia el pedido por WhatsApp', desc: 'Con un clic generamos el mensaje con todas tus figuritas y lo mandamos directo a nuestro WhatsApp para coordinar la entrega.' },
+              { num: '03', icon: '🏆', color: '#00C2E0', titulo: 'Completa tu álbum', desc: 'Coordinamos la entrega, te enviamos lo que necesitas y actualiza tu progreso. Así de simple y sin vueltas.' },
             ].map((s) => (
               <div key={s.num} style={{ background: '#111', padding: '2.5rem 2rem', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ ...DISPLAY, fontSize: 100, fontWeight: 900, color: 'rgba(255,255,255,0.04)', position: 'absolute', top: -10, right: 16, lineHeight: 1 }}>{s.num}</div>

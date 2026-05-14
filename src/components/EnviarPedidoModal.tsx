@@ -56,7 +56,7 @@ export default function EnviarPedidoModal({ faltantes, userId, onClose }: Props)
 
   return (
     <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="glass rounded-2xl w-full max-w-lg animate-slide-up">
+      <div className="glass rounded-2xl w-full max-w-lg animate-slide-up" style={{ maxHeight: '90vh', overflowY: 'auto' }}>
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-white/10">
           <div>
