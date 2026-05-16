@@ -112,3 +112,38 @@ body {
   --text-primary:   #FFFFFF;
   --text-secondary: #888888;
 }
+/* Responsive breakpoints */
+@media (min-width: 768px) {
+  .grupos-sidebar {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 180px !important;
+    flex-shrink: 0 !important;
+  }
+  .grupos-tabs {
+    display: none !important;
+  }
+  .selector-layout {
+    flex-direction: row !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .grupos-sidebar {
+    display: none !important;
+  }
+  .grupos-tabs {
+    display: block !important;
+  }
+  .selector-layout {
+    flex-direction: column !important;
+  }
+}
+@media (min-width: 768px) {
+  .mobile-only { display: none !important; }
+  .desktop-only { display: block !important; }
+}
+@media (max-width: 767px) {
+  .mobile-only { display: block !important; }
+  .desktop-only { display: none !important; }
+}
