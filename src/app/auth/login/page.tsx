@@ -11,6 +11,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault()
@@ -50,14 +51,24 @@ export default function LoginPage() {
 
         <div>
           <label className="text-white/60 text-sm block mb-1">Contraseña</label>
+          <div style={{ position: 'relative' }}>
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
             className="input-field"
+            style={{ paddingRight: 44 }}
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: 18, color: 'rgba(255,255,255,0.5)' }}
+          >
+            {showPassword ? '🙈' : '👁️'}
+          </button>
+        </div>
         </div>
 
         {error && (

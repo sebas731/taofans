@@ -10,6 +10,7 @@ export default function RegistroPage() {
   const [form, setForm] = useState({ nombre: '', email: '', whatsapp: '', password: '', confirm: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showPass, setShowPass] = useState(false)
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     setForm({ ...form, [e.target.name]: e.target.value })
@@ -86,15 +87,17 @@ export default function RegistroPage() {
         </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className="text-white/60 text-sm block mb-1">Contraseña</label>
-            <input name="password" type="password" required value={form.password} onChange={handleChange}
-              placeholder="••••••••" className="input-field" />
+          <div style={{ position: 'relative' }}>
+            <input name="password" type={showPass ? 'text' : 'password'} required value={form.password} onChange={handleChange}
+              placeholder="••••••••" className="input-field" style={{ paddingRight: 44 }} />
+            <button type="button" onClick={() => setShowPass(!showPass)}
+              style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: 18, color: 'rgba(255,255,255,0.5)' }}>
+              {showPass ? '🙈' : '👁️'}
+            </button>
           </div>
-          <div>
-            <label className="text-white/60 text-sm block mb-1">Confirmar</label>
-            <input name="confirm" type="password" required value={form.confirm} onChange={handleChange}
-              placeholder="••••••••" className="input-field" />
+          <div style={{ position: 'relative' }}>
+            <input name="confirm" type={showPass ? 'text' : 'password'} required value={form.confirm} onChange={handleChange}
+              placeholder="••••••••" className="input-field" style={{ paddingRight: 44 }} />
           </div>
         </div>
 
