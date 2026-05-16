@@ -141,10 +141,38 @@ export default function FiguitasSelector({ initialTengo, userId }: Props) {
           </div>
         </div>
       ) : (
-        <div style={{ display: 'flex', gap: 24 }}>
+        <div style={{ display: 'flex', gap: 16, flexDirection: 'column' }}>
 
-          {/* Sidebar grupos */}
-          <div style={{ width: 180, flexShrink: 0 }}>
+        {/* Tabs grupos — horizontal scroll en móvil */}
+        <div style={{ overflowX: 'auto', paddingBottom: 4 }}>
+          <div style={{ display: 'flex', gap: 6, minWidth: 'max-content' }}>
+            {Object.keys(GRUPOS).map((grupo) => {
+              const activo = grupoActivo === grupo
+              const col = COLORES_GRUPO[grupo] ?? '#FFE000'
+              const tengoEnGrupo = todasLasFiguritas.filter(f => f.grupo === grupo && tengo.has(f.codigo)).length
+              const totalGrupo = todasLasFiguritas.filter(f => f.grupo === grupo).length
+              const pctGrupo = Math.round((tengoEnGrupo / totalGrupo) * 100)
+              return (
+                <button key={grupo}
+                  onClick={() => { setGrupoActivo(grupo); setPaisActivo(null) }}
+                  style={{
+                    padding: '7px 14px', borderRadius: 20, cursor: 'pointer', flexShrink: 0,
+                    border: activo ? `1px solid ${col}` : '1px solid var(--border)',
+                    background: activo ? `${col}18` : 'var(--bg-card)',
+                    color: activo ? col : 'var(--text-secondary)',
+                    fontWeight: 600, fontSize: 13, transition: 'all 0.15s',
+                    display: 'flex', alignItems: 'center', gap: 6,
+                  }}>
+                  {grupo}
+                  <span style={{ fontSize: 10, opacity: 0.7 }}>{pctGrupo}%</span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+
+        {/* Centro */}
+        <div style={{ flex: 1, minWidth: 0 }}>
             <p style={{ fontSize: 11, color: 'var(--text-secondary)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8, fontWeight: 600 }}>Grupos</p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
               {Object.keys(GRUPOS).map((grupo) => {
@@ -185,7 +213,7 @@ export default function FiguitasSelector({ initialTengo, userId }: Props) {
                     {grupoActivo}
                   </h2>
                 </div>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(160px, 1fr))', gap: 14 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 12 }}>
                   {paisesDelGrupo.map((pais) => {
                     const tengoEnPais = todasLasFiguritas.filter(f => f.pais === pais.nombre && tengo.has(f.codigo)).length
                     const totalPais = todasLasFiguritas.filter(f => f.pais === pais.nombre).length
@@ -305,7 +333,7 @@ export default function FiguitasSelector({ initialTengo, userId }: Props) {
                 </p>
 
                 {/* Grid figuritas */}
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(72px, 1fr))', gap: 8 }}>
                   {figuritasPais.map((f) => {
                     const tiene = tengo.has(f.codigo)
                     return (
