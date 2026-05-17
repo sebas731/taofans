@@ -11,6 +11,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es">
       <head>
+        <title>Figuritas Sueltas del Mundial | Completa tu Álbum</title>
+        <meta name="description" content="¿Te faltan las difíciles para llenar el álbum del mundial? Pedí tus figuritas sueltas acá y completá tu colección de forma rápida y fácil." />
+        <meta name="description" content="¡Te ayudamos a llenar tu álbum del mundial! Encuentra las figuritas sueltas que te faltan y haz tu pedido online hoy mismo." />
+        <meta name="description" content="Album mundial 2026"></meta>
         <meta name="google-site-verification" content="vDBWwzUE7TqsrhrAcl4zoWERypW2MuwaBBIn90VItPU" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
