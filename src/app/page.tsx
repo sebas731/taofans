@@ -13,7 +13,7 @@ const CAMPANAS = [
     accentColor: '#E8003D',
     emoji: '🏆',
     tag: 'MÁS POPULAR',
-    tagStyle: { background: '#E8003D', color: '#fff' },
+    tagStyle: { background: '#000000', color: '#fff' },
   },
   {
     id: 'champions-2025',
@@ -21,10 +21,10 @@ const CAMPANAS = [
     sub: '3REYES',
     total: 588,
     activa: false,
-    accentColor: '#00C2E0',
+    accentColor: '#6B21C8',
     emoji: '⭐',
     tag: 'PRÓXIMAMENTE',
-    tagStyle: { background: '#1E1E1E', color: '#fff' },
+    tagStyle: { background: '#e5e7eb', color: '#1f2937' },
   },
   {
     id: 'liga-peru-2025',
@@ -32,14 +32,23 @@ const CAMPANAS = [
     sub: 'Álbum oficial peruano',
     total: 320,
     activa: false,
-    accentColor: '#6B21C8',
+    accentColor: '#00C2E0',
     emoji: '🇵🇪',
     tag: 'PRÓXIMAMENTE',
-    tagStyle: { background: '#1E1E1E', color: '#fff' },
+    tagStyle: { background: '#e5e7eb', color: '#1f2937' },
   },
 ]
 
 const DISPLAY = { fontFamily: "'Barlow Condensed', sans-serif" }
+
+const BarraMundial = ({ height = 8 }: { height?: number }) => (
+  <div style={{ display: 'flex', height, width: '100%', overflow: 'hidden' }}>
+    <div style={{ flex: 1, background: '#E8003D' }} />
+    <div style={{ flex: 1, background: '#6B21C8' }} />
+    <div style={{ flex: 1, background: '#00C2E0' }} />
+    <div style={{ flex: 1, background: '#FFD700' }} />
+  </div>
+)
 
 export default async function HomePage() {
   const DEMO_MODE = !process.env.NEXT_PUBLIC_SUPABASE_URL ||
@@ -52,240 +61,416 @@ export default async function HomePage() {
   }
 
   return (
-    <div style={{ background: '#080808', minHeight: '100vh', color: '#fff' }}>
+    <div style={{ 
+      background: '#ffffff', 
+      minHeight: '100vh', 
+      color: '#000000', 
+      overflowX: 'hidden',
+      position: 'relative'
+    }}>
+      
+      {/* ── FONDO DE FORMAS GEOMÉTRICAS VIBRANTES (ESTILO ARTE DEL POSTER) ── */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100%', pointerEvents: 'none', zIndex: 0, overflow: 'hidden' }}>
+        {/* Franjas y polígonos gigantes cruzados en el fondo con opacidad controlada para no cansar la vista */}
+        <div className="geo-float-1" style={{ position: 'absolute', top: '-5rem', right: '-10rem', width: '800px', height: '1200px', background: '#6B21C8', clipPath: 'polygon(40% 0%, 100% 0%, 60% 100%, 0% 100%)', opacity: 0.05 }} />
+        <div className="geo-float-2" style={{ position: 'absolute', top: '20rem', left: '-15rem', width: '700px', height: '900px', background: '#E8003D', clipPath: 'polygon(0% 20%, 100% 0%, 80% 100%, 0% 80%)', opacity: 0.04 }} />
+        <div className="geo-float-3" style={{ position: 'absolute', top: '50rem', right: '-5rem', width: '600px', height: '600px', background: '#FFD700', borderRadius: '50%', opacity: 0.06 }} />
+        <div className="geo-float-4"style={{ position: 'absolute', top: '90rem', left: '-5rem', width: '900px', height: '1000px', background: '#00C2E0', clipPath: 'polygon(20% 0%, 100% 30%, 70% 100%, 0% 80%)', opacity: 0.04 }} />
+      </div>
 
-      {/* ── NAV ── */}
-      <nav style={{ position: 'sticky', top: 0, zIndex: 50, borderBottom: '1px solid #1E1E1E', background: 'rgba(8,8,8,0.97)', backdropFilter: 'blur(12px)' }}>
-        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 2rem', height: 68, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <BarraMundial height={10} />
 
-          {/* Logo */}
-          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
-            <span style={{ ...DISPLAY, fontSize: 26, fontWeight: 900, color: '#fff', letterSpacing: '0.06em' }}>
-              TAO<span style={{ color: '#E8003D' }}>FANS</span>
+      {/* ── NAV ASIMÉTRICO ── */}
+      <nav style={{ background: '#ffffff', borderBottom: '4px solid #000000', position: 'sticky', top: 0, zIndex: 50 }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 2rem', height: 74, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Link href="/" style={{ textDecoration: 'none' }}>
+            <span style={{ ...DISPLAY, fontSize: 36, fontWeight: 900, color: '#000000', letterSpacing: '0.02em', transform: 'skewX(-10deg)', display: 'inline-block' }}>
+              TAOFANS
             </span>
           </Link>
 
-          {/* Links centro — solo desktop */}
-          <div style={{ display: 'flex', gap: 4, position: 'absolute', left: '50%', transform: 'translateX(-50%)' }} className="desktop-only">
+          <div style={{ display: 'flex', gap: 4, position: 'absolute', left: '50%', transform: 'translateX(-50%) skewX(-12deg)' }} className="desktop-only">
             {[
               { href: '#campanas', label: 'Álbumes' },
               { href: '#servicios', label: 'Cómo funciona' },
               { href: '#nosotros', label: 'Nosotros' },
             ].map((item) => (
-              <a key={item.href} href={item.href} className="nav-link"
-                style={{ color: 'rgba(255,255,255,0.6)', fontSize: 14, textDecoration: 'none', fontWeight: 500, padding: '8px 14px', borderRadius: 8 }}>
+              <a key={item.href} href={item.href}
+                style={{ color: '#000000', fontSize: 13, textDecoration: 'none', fontWeight: 900, padding: '10px 20px', letterSpacing: '0.05em', textTransform: 'uppercase', border: '2px solid transparent', transition: 'all 0.2s' }}>
                 {item.label}
               </a>
             ))}
           </div>
 
-          {/* Botones derecha */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <Link href="/auth/login" className="nav-btn"
-              style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, textDecoration: 'none', fontWeight: 500, padding: '8px 16px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+            <Link href="/auth/login" style={{ color: '#000000', fontSize: 13, textDecoration: 'none', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Iniciar sesión
             </Link>
-            <Link href="/auth/registro" className="btn-primary" style={{ fontSize: 14, padding: '8px 20px' }}>
-              EMPEZAR GRATIS
+            <Link href="/auth/registro" style={{ fontSize: 13, padding: '12px 26px', backgroundColor: '#E8003D', color: '#fff', border: '3px solid #000000', fontWeight: 900, borderRadius: 0, textDecoration: 'none', letterSpacing: '0.06em', boxShadow: '4px 4px 0px #000000', transform: 'skewX(-10deg)' }}>
+              <span style={{ display: 'inline-block', transform: 'skewX(10deg)' }}>EMPEZAR GRATIS</span>
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* ── HERO ── */}
-      <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '5rem', paddingBottom: '6rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-        <div style={{ position: 'absolute', right: -60, top: -40, ...DISPLAY, fontSize: 'clamp(300px, 40vw, 500px)', fontWeight: 900, color: 'rgba(255,255,255,0.025)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none' }}>
-          26
-        </div>
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, display: 'flex', height: 4 }}>
-          {['#E8003D','#6B21C8','#00C2E0','#FFE000','#00A859','#FF5C00'].map((c, i) => (
-            <div key={i} style={{ flex: 1, background: c }} />
-          ))}
-        </div>
-
-        <div style={{ maxWidth: 1200, margin: '0 auto', position: 'relative', zIndex: 1, display: 'flex', alignItems: 'center', gap: '3rem' }}>
-
-          {/* LEFT */}
-          <div style={{ flex: 1 }}>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#E8003D', borderRadius: 4, padding: '6px 14px', marginBottom: '1.5rem' }}>
-              <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em' }}>🔥 CAMPAÑA ACTIVA</span>
-              <span style={{ fontSize: 12, fontWeight: 400, opacity: 0.85 }}>Mundial 2026 Panini</span>
+      {/* ── HERO CON DISEÑO CORTE DINÁMICO ── */}
+      <section style={{ position: 'relative', paddingTop: '8rem', paddingBottom: '9rem', paddingLeft: '1.5rem', paddingRight: '1.5rem', zIndex: 1 }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: '5rem', flexWrap: 'wrap' }}>
+          
+          <div style={{ flex: 1, minWidth: 320 }}>
+            {/* Tag Estilo Poster Inclinado */}
+            <div className="hero-badge" style={{ display: 'inline-flex', alignItems: 'center', background: '#000000', color: '#ffffff', padding: '10px 20px', marginBottom: '2.5rem', fontWeight: 900, fontSize: 12, letterSpacing: '0.15em', transform: 'rotate(-2deg) skewX(-10deg)', boxShadow: '4px 4px 0px #FFD700' }}>
+              ⚡ EN STOCK · MUNDIAL 2026 ACTIVO
             </div>
 
-            <h1 style={{ ...DISPLAY, fontSize: 'clamp(72px, 12vw, 160px)', fontWeight: 900, lineHeight: 0.9, marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '-0.01em' }}>
-              <span style={{ display: 'block', color: '#fff' }}>COMPLETA</span>
-              <span style={{ display: 'block', color: '#FFE000' }}>TU ÁLBUM</span>
-              <span style={{ display: 'block', color: 'rgba(255,255,255,0.2)' }}>SIN VUELTAS.</span>
+            {/* Tipografía masiva y superpuesta */}
+            <h1 className="hero-h1" style={{ ...DISPLAY, fontSize: 'clamp(60px, 9vw, 115px)', fontWeight: 900, lineHeight: 0.78, marginBottom: '2.5rem', textTransform: 'uppercase', letterSpacing: '-0.04em', color: '#000000' }}>
+              <span style={{ display: 'block', transform: 'skewX(-6deg)' }}>COMPLETA TU</span>
+              <span style={{ display: 'block', color: '#6B21C8', transform: 'skewX(-6deg) rotate(-1deg)', transformOrigin: 'left' }}>COLECCIÓN</span>
+              <span style={{ display: 'block', color: '#00C2E0', transform: 'skewX(-6deg)' }}>AL INSTANTE.</span>
             </h1>
 
-            <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.55)', maxWidth: 520, lineHeight: 1.7, marginBottom: '2.5rem' }}>
-              Marca las figuritas que te faltan, elige tu álbum y coordina el pedido directo por WhatsApp. Rápido, fácil y con stock real.
+            <p style={{ fontSize: 18, color: '#1F2937', maxWidth: 500, lineHeight: 1.6, marginBottom: '3rem', fontWeight: 600 }}>
+              Olvídate de las repetidas. Filtra tus cartas y figuritas faltantes digitalmente, arma tu lista en segundos y recíbelas directo por WhatsApp.
             </p>
 
-            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-              <Link href="/auth/registro" className="btn-primary" style={{ fontSize: 16 }}>
-                ✨ EMPEZAR GRATIS
+            <div style={{ display: 'flex', gap: 20, flexWrap: 'wrap' }}>
+              <Link href="/auth/registro" style={{ fontSize: 16, padding: '18px 42px', backgroundColor: '#000000', color: '#fff', fontWeight: 900, borderRadius: 0, textDecoration: 'none', letterSpacing: '0.05em', border: '3px solid #000000', boxShadow: '6px 6px 0px #E8003D', transform: 'skewX(-10deg)' }}>
+                <span style={{ display: 'inline-block', transform: 'skewX(10deg)' }}>🚀 REGÍSTRATE GRATIS</span>
               </Link>
-              <a href="#campanas" className="btn-ghost" style={{ fontSize: 15 }}>
-                Ver álbumes ↓
+              <a href="#campanas" style={{ ...DISPLAY, fontSize: 16, padding: '18px 32px', color: '#000000', fontWeight: 900, textDecoration: 'none', border: '3px solid #000000', letterSpacing: '0.05em', boxShadow: '4px 4px 0px #00C2E0', transform: 'skewX(-10deg)' }}>
+                <span style={{ display: 'inline-block', transform: 'skewX(10deg)' }}>EXPLORAR ↓</span>
               </a>
             </div>
 
-            <div style={{ display: 'flex', gap: '3rem', marginTop: '4rem', flexWrap: 'wrap' }}>
+            {/* Bloques de Estadísticas Estilo Módulos del Poster */}
+            <div style={{ display: 'flex', gap: '2rem', marginTop: '5.5rem', flexWrap: 'wrap' }}>
               {[
-                { num: '+500', label: 'Coleccionistas' },
-                { num: '+10', label: 'Álbumes distintos' },
-                { num: '100%', label: 'Figuritas originales' },
-                { num: '24h', label: 'Respuesta máxima' },
+                { num: '+500', label: 'Coleccionistas', bg: '#6B21C8' },
+                { num: '100%', label: 'Originales', bg: '#00C2E0' },
+                { num: '0', label: 'Repetidas', bg: '#E8003D' },
               ].map((s) => (
-                <div key={s.label}>
-                  <div style={{ ...DISPLAY, fontSize: 40, fontWeight: 900, color: '#FFE000', lineHeight: 1 }}>{s.num}</div>
-                  <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginTop: 4 }}>{s.label}</div>
+                <div key={s.label} style={{ borderLeft: `6px solid ${s.bg}`, paddingLeft: '14px', transform: 'skewX(-10deg)' }}>
+                  <div style={{ ...DISPLAY, fontSize: 44, fontWeight: 900, color: '#000000', lineHeight: 1 }}>{s.num}</div>
+                  <div style={{ fontSize: 12, color: '#4B5563', marginTop: 4, fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.label}</div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Imagen álbum */}
-          <div style={{ flexShrink: 0, width: 320, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', alignSelf: 'flex-start', marginTop: '2rem' }}>
-            <div style={{ position: 'absolute', width: 340, height: 340, borderRadius: '50%', border: '2px solid rgba(255,224,0,0.15)', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
-            <div style={{ position: 'absolute', width: 260, height: 260, borderRadius: '50%', border: '2px solid rgba(232,0,61,0.2)', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
-            <div style={{ position: 'absolute', width: 280, height: 280, borderRadius: 40, border: '1px solid rgba(0,194,224,0.2)', top: '50%', left: '50%', transform: 'translate(-50%, -50%) rotate(15deg)' }} />
-            <img src="/album.png" alt="Álbum Mundial 2026 Panini" style={{ width: '85%', borderRadius: 16, transform: 'rotate(-3deg)', position: 'relative', zIndex: 1 }} />
+          {/* ARTE DEL ÁLBUM ENMARCADO EN POLÍGONO DEL POSTER */}
+          
+          <div className="album-frame" style={{ flexShrink: 0, width: 380, margin: '0 auto', position: 'relative', transform: 'rotate(2deg)' }}>
+            {/* Fondo poligonal agresivo que sobresale */}
+            
+            <div style={{ position: 'absolute', top: -30, left: -20, width: '110%', height: '110%', backgroundColor: '#FFD700', clipPath: 'polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%)', zIndex: -2 }} />
+            <div style={{ position: 'absolute', top: -15, left: -35, width: '105%', height: '105%', backgroundColor: '#6B21C8', clipPath: 'polygon(0% 10%, 90% 0%, 100% 90%, 10% 100%)', zIndex: -1 }} />
+            
+            <div style={{ background: '#ffffff', border: '4px solid #000000', padding: '24px', position: 'relative', boxShadow: '12px 12px 0px #000000', transform: 'skewY(-4deg)' }}>
+              <div style={{ position: 'absolute', top: -4, left: 40, width: 120, height: 8 }}>
+                <BarraMundial height={8} />
+              </div>
+              <img src="/album.png" alt="Álbum Colección Oficial" style={{ width: '100%', display: 'block', border: '3px solid #000000', transform: 'skewY(4deg)' }} />
+            </div>
           </div>
+
         </div>
       </section>
 
-      {/* ── MARQUEE ── */}
-      <div style={{ background: '#FFE000', overflow: 'hidden', padding: '10px 0', borderTop: '1px solid #1E1E1E' }}>
-        <div className="marquee-inner" style={{ color: '#080808', fontWeight: 700, fontSize: 13, letterSpacing: '0.12em', fontFamily: "'Barlow Condensed', sans-serif" }}>
-          {Array(6).fill('⚽ MUNDIAL 2026 · PANINI OFICIAL · FIGURITAS GARANTIZADAS · PIDE POR WHATSAPP · COMPLETA TU ÁLBUM · ').map((t, i) => (
-            <span key={i}>{t}</span>
-          ))}
-        </div>
-      </div>
+      <BarraMundial height={16} />
 
-      {/* ── CAMPAÑAS ── */}
-      <section id="campanas" style={{ padding: '6rem 1.5rem' }}>
+      {/* ── SECCIÓN ÁLBUMES & COLECCIONES CON SEPARADORES ANGULARES ── */}
+      <section id="campanas" style={{ padding: '8rem 1.5rem', position: 'relative', zIndex: 1, backgroundColor: '#ffffff' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ marginBottom: '3rem' }}>
-            <div style={{ ...DISPLAY, fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', color: '#FFE000', marginBottom: 8 }}>CAMPAÑAS ACTIVAS</div>
-            <h2 style={{ ...DISPLAY, fontSize: 'clamp(48px, 7vw, 80px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 0.95, color: '#fff' }}>
-              ELIGE TU<br />ÁLBUM
-            </h2>
+          
+          {/* Cabecera estilo Bloque de Título del Afiche */}
+          <div style={{ marginBottom: '5rem', borderBottom: '4px solid #000000', paddingBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 24 }}>
+            <div style={{ transform: 'skewX(-8deg)' }}>
+              <div style={{ ...DISPLAY, fontSize: 15, fontWeight: 900, letterSpacing: '0.25em', color: '#E8003D', marginBottom: 8 }}>PANEL DE CONTROL</div>
+              <h2 style={{ ...DISPLAY, fontSize: 'clamp(48px, 8vw, 85px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 0.8, color: '#000000' }}>
+                ÁLBUMES Y <span style={{ color: '#6B21C8' }}>COLECCIONES</span>
+              </h2>
+            </div>
+            <div style={{ ...DISPLAY, fontSize: 22, fontWeight: 900, backgroundColor: '#FFD700', color: '#000000', border: '3px solid #000000', padding: '10px 24px', transform: 'rotate(-2deg) skewX(-10deg)', boxShadow: '4px 4px 0px #000000' }}>
+              FASE DE GRUPOS 2026
+            </div>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
-            {CAMPANAS.map((c) => (
-              <CampanaCard key={c.id} c={c} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── SERVICIOS ── */}
-      <section id="servicios" style={{ padding: '6rem 1.5rem', borderTop: '1px solid #1E1E1E' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-          <div style={{ marginBottom: '3rem' }}>
-            <div style={{ ...DISPLAY, fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', color: '#00C2E0', marginBottom: 8 }}>SERVICIOS</div>
-            <h2 style={{ ...DISPLAY, fontSize: 'clamp(48px, 7vw, 80px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 0.95, color: '#fff' }}>
-              ¿CÓMO<br />FUNCIONA?
-            </h2>
-          </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 1, background: '#1E1E1E', borderRadius: 16, overflow: 'hidden' }}>
-            {[
-              { num: '01', icon: '📋', color: '#E8003D', titulo: 'Registra tus figuritas', desc: 'Crea tu cuenta gratis, elige el álbum y marca las figuritas que ya tienes. Tu progreso se guarda automáticamente.' },
-              { num: '02', icon: '💬', color: '#FFE000', titulo: 'Envía el pedido por WhatsApp', desc: 'Con un clic generamos el mensaje con todas tus figuritas faltantes y lo enviamos directo a nuestro WhatsApp.' },
-              { num: '03', icon: '🏆', color: '#00C2E0', titulo: 'Completa tu álbum', desc: 'Coordinamos la entrega, te enviamos lo que necesitas y actualizas tu progreso. Así de simple.' },
-            ].map((s) => (
-              <div key={s.num} style={{ background: '#111', padding: '2.5rem 2rem', position: 'relative', overflow: 'hidden' }}>
-                <div style={{ ...DISPLAY, fontSize: 100, fontWeight: 900, color: 'rgba(255,255,255,0.04)', position: 'absolute', top: -10, right: 16, lineHeight: 1 }}>{s.num}</div>
-                <div style={{ width: 3, height: 40, background: s.color, borderRadius: 99, marginBottom: '1.5rem' }} />
-                <div style={{ fontSize: 36, marginBottom: '1rem' }}>{s.icon}</div>
-                <h3 style={{ ...DISPLAY, fontSize: 26, fontWeight: 900, color: '#fff', textTransform: 'uppercase', marginBottom: '0.75rem', lineHeight: 1.1 }}>{s.titulo}</h3>
-                <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7 }}>{s.desc}</p>
+          
+          {/* Grilla con inclinaciones asimétricas sutiles en las sombras */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: 36 }}>
+            {CAMPANAS.map((c, idx) => (
+              <div className="campana-card" key={c.id} style={{ 
+                background: '#ffffff', 
+                border: '4px solid #000000', 
+                boxShadow: `8px 8px 0px ${idx === 0 ? '#E8003D' : idx === 1 ? '#6B21C8' : '#00C2E0'}`, 
+                padding: '1.5rem', 
+                borderRadius: 0, 
+                position: 'relative',
+                transform: idx % 2 === 0 ? 'rotate(0.5deg)' : 'rotate(-0.5deg)'
+              }}>
+                <CampanaCard c={c} />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── NOSOTROS ── */}
-      <section id="nosotros" style={{ padding: '6rem 1.5rem', borderTop: '1px solid #1E1E1E' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', alignItems: 'center' }}>
+      {/* ── SECCIÓN PROCESO (CORTES POLIGONALES PASO A PASO) ── */}
+      <section id="servicios" style={{ 
+        padding: '9rem 1.5rem', 
+        backgroundColor: '#ffffff', 
+        borderTop: '4px solid #000000', 
+        borderBottom: '4px solid #000000', 
+        position: 'relative', 
+        zIndex: 1 
+      }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+          
+          <div style={{ marginBottom: '6rem', textAlign: 'left', maxWidth: 750, transform: 'skewX(-6deg)' }}>
+            <div style={{ ...DISPLAY, fontSize: 15, fontWeight: 900, letterSpacing: '0.2em', color: '#6B21C8', marginBottom: 10 }}>
+              SISTEMA INTELIGENTE
+            </div>
+            <h2 style={{ ...DISPLAY, fontSize: 'clamp(42px, 6.5vw, 76px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 0.85, color: '#000000' }}>
+              PROCESO DE RELLENO EN <span style={{ color: '#E8003D' }}>3 PASOS</span>
+            </h2>
+            <p style={{ fontSize: 17, color: '#374151', marginTop: 20, fontWeight: 600, transform: 'skewX(6deg)' }}>
+              Monitorea tus colecciones desde nuestra plataforma digital y recíbelas de forma rápida y empaquetada.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 40 }}>
+            {[
+              { 
+                num: '26', 
+                step: '01',
+                imgSrc: '/images/paso-lista.png',
+                titulo: 'Checklist Digital', 
+                desc: 'Registra tus faltantes seleccionando los casilleros de tu álbum. La plataforma calcula tu porcentaje exacto de completado automáticamente.',
+                color: '#E8003D',
+                clip: 'polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%)'
+              },
+              { 
+                num: '26', 
+                step: '02',
+                imgSrc: '/images/paso-whatsapp.png',
+                titulo: 'Orden Relámpago', 
+                desc: 'El algoritmo agrupa y organiza tus códigos de menor a mayor, enviando un formato limpio e impecable directo a nuestro canal de WhatsApp.',
+                color: '#00C2E0',
+                clip: 'polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%)'
+              },
+              { 
+                num: '26', 
+                step: '03',
+                imgSrc: '/images/paso-entrega.png',
+                titulo: 'Despacho Foil Protegido', 
+                desc: 'Separamos tu lote de figuritas directo de nuestro inventario y coordinamos envíos locales o nacionales con empaques rígidos antiflexión.',
+                color: '#6B21C8',
+                clip: 'polygon(0% 0%, 100% 0%, 100% 85%, 0% 100%)'
+              },
+            ].map((s, index) => (
+              <div key={s.step} style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem', position: 'relative' }}>
+                
+                {/* Contenedor con Cortes Poligonales Reales Asimétricos (Estilo Posters de Ciudades FIFA) */}
+                <div style={{ 
+                  width: '100%', 
+                  height: 300, 
+                  backgroundColor: '#ffffff', 
+                  border: '4px solid #000000', 
+                  clipPath: s.clip,
+                  overflow: 'hidden',
+                  position: 'relative',
+                  boxShadow: `8px 8px 0px ${s.color}`
+                }}>
+                  {/* Número "26" Masivo superpuesto cortado verticalmente */}
+                  <div style={{ 
+                    ...DISPLAY, 
+                    position: 'absolute', 
+                    bottom: '-60px', 
+                    right: '-20px', 
+                    fontSize: 270, 
+                    fontWeight: 900, 
+                    color: s.color, 
+                    opacity: 0.18, 
+                    lineHeight: 1,
+                    userSelect: 'none',
+                    transform: 'skewX(-10deg)'
+                  }}>{s.num}</div>
+
+                  {/* Tag Flotante de Paso */}
+                  <div style={{ ...DISPLAY, position: 'absolute', top: 20, left: 20, background: '#000000', color: '#ffffff', padding: '6px 16px', fontSize: 15, fontWeight: 900, letterSpacing: '0.08em', transform: 'skewX(-12deg)' }}>
+                    PASO {s.step}
+                  </div>
+
+                  <img src={s.imgSrc} alt={s.titulo} style={{ width: '100%', height: '100%', objectFit: 'cover', mixBlendMode: 'multiply' }} />
+                </div>
+
+                <div style={{ paddingRight: '1rem' }}>
+                  <h3 style={{ ...DISPLAY, fontSize: 30, fontWeight: 900, color: '#000000', textTransform: 'uppercase', marginBottom: '0.6rem', letterSpacing: '-0.02em', transform: 'skewX(-6deg)' }}>
+                    {s.titulo}
+                  </h3>
+                  <p style={{ fontSize: 15, color: '#374151', lineHeight: 1.6, fontWeight: 600 }}>
+                    {s.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ── SECCIÓN NOSOTROS (DISEÑO BLOQUES CRUZADOS GEOMÉTRICOS) ── */}
+      <section id="nosotros" style={{ padding: '8rem 1.5rem', background: '#ffffff', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '6rem', alignItems: 'center' }}>
+          
           <div>
-            <div style={{ ...DISPLAY, fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', color: '#6B21C8', marginBottom: 8 }}>QUIÉNES SOMOS</div>
-            <h2 style={{ ...DISPLAY, fontSize: 'clamp(48px, 6vw, 72px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 0.95, color: '#fff', marginBottom: '1.5rem' }}>
-              SOMOS<br /><span style={{ color: '#FFE000' }}>TAOFANS</span>
+            <div className="stat-box feature-item" style={{ ...DISPLAY, fontSize: 15, fontWeight: 900, letterSpacing: '0.2em', color: '#00C2E0', marginBottom: 10, transform: 'skewX(-8deg)' }}>
+              NUESTRA FILOSOFÍA
+            </div>
+            <h2 style={{ ...DISPLAY, fontSize: 'clamp(42px, 6vw, 76px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 0.85, color: '#000000', marginBottom: '2.5rem', transform: 'skewX(-8deg)' }}>
+              TU HUB DE <span style={{ color: '#FFD700', WebkitTextStroke: '2px #000', textShadow: '4px 4px 0px #000' }}>COLECCIONES</span>
             </h2>
-            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.5)', lineHeight: 1.8, marginBottom: '1rem' }}>
-              Somos coleccionistas apasionados que decidimos hacer más fácil el proceso de completar álbumes. Entendemos la emoción de pegar la última figurita.
+            <p style={{ fontSize: 16, color: '#1F2937', lineHeight: 1.8, marginBottom: '1.5rem', fontWeight: 600 }}>
+              Somos fanáticos del coleccionismo organizado. Transformamos el intercambio caótico y los sobres llenos de repetidas en un proceso moderno, transparente y 100% digital.
             </p>
-            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.5)', lineHeight: 1.8, marginBottom: '2.5rem' }}>
-              Contamos con stock permanente de los álbumes más populares y atención personalizada para que consigas lo que necesitas cuando lo necesitas.
+            <p style={{ fontSize: 16, color: '#1F2937', lineHeight: 1.8, marginBottom: '3.5rem', fontWeight: 600 }}>
+              Mantenemos bases de datos actualizadas con las licencias oficiales más codiciadas, asegurando un centro de distribución óptimo para coleccionistas exigentes en todo el país.
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
+            
+            {/* Bloques de Estadísticas Estilo Módulos Independientes Cruzados */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
               {[
-                { num: '+500', label: 'Clientes' },
-                { num: '+10', label: 'Álbumes' },
-                { num: '100%', label: 'Originales' },
+                { num: '+500', label: 'Usuarios', border: '#E8003D', rot: '-2deg' },
+                { num: '+10', label: 'Campañas', border: '#6B21C8', rot: '3deg' },
+                { num: '100%', label: 'Garantía', border: '#00C2E0', rot: '-1deg' },
               ].map((s) => (
-                <div key={s.label} style={{ background: '#111', border: '1px solid #1E1E1E', borderRadius: 12, padding: '1rem', textAlign: 'center' }}>
-                  <div style={{ ...DISPLAY, fontSize: 32, fontWeight: 900, color: '#FFE000' }}>{s.num}</div>
-                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)', marginTop: 4 }}>{s.label}</div>
+                <div className="stat-item" key={s.label} style={{ backgroundColor: '#ffffff', border: '3px solid #000000', padding: '1.75rem 1rem', textAlign: 'center', boxShadow: `5px 5px 0px #000000`, transform: `rotate(${s.rot}) skewX(-5deg)` }}>
+                  <div style={{ ...DISPLAY, fontSize: 36, fontWeight: 900, color: '#000000', lineHeight: 1 }}>{s.num}</div>
+                  <div style={{ fontSize: 11, color: s.border, marginTop: 6, fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.label}</div>
                 </div>
               ))}
             </div>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-            {[
-              { color: '#E8003D', icon: '✅', titulo: 'Figuritas 100% originales', desc: 'Solo trabajamos con productos Panini y editoriales oficiales.' },
-              { color: '#FFE000', icon: '⚡', titulo: 'Respuesta rápida', desc: 'Respondemos pedidos por WhatsApp en menos de 24 horas.' },
-              { color: '#00C2E0', icon: '📦', titulo: 'Envíos a todo el país', desc: 'Despachamos a cualquier ciudad. También entrega en mano.' },
-              { color: '#6B21C8', icon: '🔒', titulo: 'Plataforma segura', desc: 'Tu información y pedidos están protegidos en todo momento.' },
-            ].map((item) => (
-              <div key={item.titulo} style={{ background: '#111', border: '1px solid #1E1E1E', borderLeft: `3px solid ${item.color}`, borderRadius: 12, padding: '1rem 1.25rem', display: 'flex', alignItems: 'flex-start', gap: 14 }}>
-                <span style={{ fontSize: 22, flexShrink: 0 }}>{item.icon}</span>
-                <div>
-                  <p style={{ fontWeight: 600, fontSize: 14, color: '#fff', marginBottom: 2 }}>{item.titulo}</p>
-                  <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)' }}>{item.desc}</p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 36 }}>
+            
+            {/* Contenedor Gráfico Cortado Diagonalmente */}
+            <div style={{ 
+              width: '100%', 
+              height: 300, 
+              backgroundColor: '#ffffff', 
+              border: '4px solid #000000', 
+              clipPath: 'polygon(0% 15%, 100% 0%, 100% 85%, 0% 100%)', 
+              boxShadow: '10px 10px 0px #000000',
+              position: 'relative',
+              transform: 'rotate(-1deg)'
+            }}>
+              <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.4))', zIndex: 1 }} />
+              <img src="/images/nosotros-figuritas.png" alt="Álbumes y cartas coleccionables" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+              {[
+                { titulo: 'Licencias Oficiales', desc: 'Suministramos exclusivamente material auténtico Panini, 3Reyes y firmas oficiales del rubro.', dot: '#E8003D' },
+                { titulo: 'Sincronización Inmediata', desc: 'Automatizamos las listas para que no pierdas tiempo transcribiendo códigos manualmente.', dot: '#6B21C8' },
+                { titulo: 'Protección Física de Envíos', desc: 'Cada cromo o figurita se agrupa de forma milimétrica para evitar dobleces o desgastes en las esquinas.', dot: '#00C2E0' },
+              ].map((item) => (
+                <div key={item.titulo} style={{ backgroundColor: '#ffffff', border: '3px solid #000000', padding: '1.5rem', display: 'flex', alignItems: 'center', gap: 18, boxShadow: '4px 4px 0px #000000', transform: 'skewX(-6deg)' }}>
+                  <div style={{ width: 14, height: 14, backgroundColor: item.dot, border: '3px solid #000000', flexShrink: 0, transform: 'rotate(45deg)' }} />
+                  <div style={{ transform: 'skewX(6deg)' }}>
+                    <p style={{ ...DISPLAY, fontWeight: 900, fontSize: 18, color: '#000000', marginBottom: 4, textTransform: 'uppercase', letterSpacing: '0.02em' }}>{item.titulo}</p>
+                    <p style={{ fontSize: 14, color: '#374151', lineHeight: 1.5, fontWeight: 600 }}>{item.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
+
         </div>
       </section>
 
-      {/* ── CTA FINAL ── */}
-      <section style={{ padding: '6rem 1.5rem', borderTop: '1px solid #1E1E1E', textAlign: 'center' }}>
-        <div style={{ maxWidth: 800, margin: '0 auto' }}>
-          <div style={{ display: 'flex', height: 6, borderRadius: 99, overflow: 'hidden', maxWidth: 200, margin: '0 auto 3rem' }}>
-            {['#E8003D','#6B21C8','#00C2E0','#FFE000'].map((c, i) => <div key={i} style={{ flex: 1, background: c }} />)}
-          </div>
-          <h2 style={{ ...DISPLAY, fontSize: 'clamp(56px, 10vw, 120px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 0.9, marginBottom: '1.5rem' }}>
-            <span style={{ color: '#fff' }}>¿LISTO PARA</span><br />
-            <span style={{ color: '#FFE000' }}>COMPLETARLO?</span>
-          </h2>
-          <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.45)', marginBottom: '2.5rem' }}>
-            Crea tu cuenta gratis, marca tus faltantes y coordina el pedido hoy mismo.
-          </p>
-          <Link href="/auth/registro" className="btn-primary" style={{ fontSize: 18, padding: '1rem 3rem' }}>
-            ✨ EMPEZAR GRATIS AHORA
-          </Link>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)', marginTop: '1rem' }}>Sin tarjeta de crédito · Gratis para siempre</p>
-        </div>
-      </section>
+      {/* ── BLOQUE INFERIOR (CTA IMPACTANTE ESTILO CORTE POSTER FIFA) ── */}
+      <div style={{ 
+        backgroundColor: '#ffffff', 
+        borderTop: '4px solid #000000', 
+        position: 'relative', 
+        width: '100vw', 
+        left: '50%', 
+        right: '50%', 
+        marginLeft: '-50vw', 
+        marginRight: '-50vw',
+        zIndex: 10
+      }}>
+        
+        {/* Línea divisoria inclinada en lugar de recta */}
+        <div style={{ position: 'absolute', top: -5, left: '0', width: '100%', height: '10px', background: 'linear-gradient(95deg, #E8003D, #6B21C8, #00C2E0, #FFD700)' }} />
 
-      {/* ── FOOTER ── */}
-      <footer style={{ borderTop: '1px solid #1E1E1E', padding: '2rem 1.5rem' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-          <span style={{ ...DISPLAY, fontSize: 22, fontWeight: 900, color: '#FFE000', letterSpacing: '0.08em' }}>TAOFANS</span>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>© 2026 TaoFans · Desarrollado por Sebastian Mamani</p>
-          <div style={{ display: 'flex', gap: '1.5rem' }}>
-            <a href={`https://wa.me/${process.env.NEXT_PUBLIC_VENDEDOR_WHATSAPP ?? ''}`} style={{ color: 'rgba(255,255,255,0.35)', fontSize: 13, textDecoration: 'none' }}>WhatsApp</a>
-            <a href={`mailto:${process.env.NEXT_PUBLIC_VENDEDOR_EMAIL ?? ''}`} style={{ color: 'rgba(255,255,255,0.35)', fontSize: 13, textDecoration: 'none' }}>Email</a>
+        {/* CTA CON ARTE URBANO/DEPORTIVO DE ALTO IMPACTO */}
+        <section style={{ padding: '9rem 1.5rem 7rem 1.5rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+          {/* Formas abstractas gigantes cruzando el bloque del CTA final */}
+          <div style={{ position: 'absolute', top: '0', left: '-10%', width: '40%', height: '100%', backgroundColor: '#6B21C8', clipPath: 'polygon(0 0, 100% 0, 60% 100%, 0 100%)', opacity: 0.03, pointerEvents: 'none' }} />
+          <div style={{ position: 'absolute', top: '0', right: '-10%', width: '40%', height: '100%', backgroundColor: '#E8003D', clipPath: 'polygon(40% 0, 100% 0, 100% 100%, 0 100%)', opacity: 0.03, pointerEvents: 'none' }} />
+
+          <div style={{ maxWidth: 1000, margin: '0 auto', position: 'relative', zIndex: 1 }}>
+            <h2 style={{ 
+              ...DISPLAY, 
+              fontSize: 'clamp(68px, 11vw, 130px)', 
+              fontWeight: 900, 
+              textTransform: 'uppercase', 
+              lineHeight: 0.75, 
+              color: '#000000',
+              letterSpacing: '-0.04em',
+              marginBottom: '2.5rem',
+              transform: 'skewX(-8deg) rotate(-1deg)'
+            }}>
+              ¿LISTO PARA<br />
+              <span style={{ color: '#ffffff', WebkitTextStroke: '3px #000000', textShadow: '6px 6px 0px #E8003D', display: 'inline-block', marginTop: '10px' }}>COMPLETARLO?</span>
+            </h2>
+            
+            <p style={{ fontSize: 22, color: '#1F2937', marginBottom: '4rem', maxWidth: 650, margin: '0 auto 4rem', fontWeight: 600 }}>
+              Crea tu cuenta gratis, marca tus faltantes y coordina el pedido hoy mismo.
+            </p>
+
+            <Link href="/auth/registro" style={{ 
+              ...DISPLAY,
+              fontSize: 24, 
+              padding: '22px 64px', 
+              backgroundColor: '#000000', 
+              color: '#ffffff', 
+              fontWeight: 900, 
+              borderRadius: 0, 
+              textDecoration: 'none', 
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 14,
+              letterSpacing: '0.06em',
+              boxShadow: '8px 8px 0px #6B21C8',
+              border: '4px solid #000000',
+              textTransform: 'uppercase',
+              transform: 'skewX(-10deg) rotate(1deg)'
+            }}>
+              <span style={{ display: 'inline-block', transform: 'skewX(10deg)' }}>🚀 EMPEZAR GRATIS AHORA</span>
+            </Link>
+
+            <p style={{ fontSize: 13, color: '#4B5563', marginTop: '3rem', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+              · SIN TARJETA DE CRÉDITO · GRATIS PARA SIEMPRE ·
+            </p>
           </div>
-        </div>
-      </footer>
+        </section>
+
+        {/* FOOTER TOTALMENTE UNIFICADO */}
+        <footer style={{ borderTop: '4px solid #000000', padding: '4rem 2rem', width: '100%', backgroundColor: '#ffffff' }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '2.5rem' }}>
+            <span style={{ ...DISPLAY, fontSize: 34, fontWeight: 900, color: '#000000', letterSpacing: '0.04em', transform: 'skewX(-8deg)', display: 'inline-block' }}>TAOFANS</span>
+            <p style={{ fontSize: 13, color: '#374151', fontWeight: 700 }}>© 2026 TaoFans · Desarrollado por Sebastian Mamani</p>
+            <div style={{ display: 'flex', gap: '3rem' }}>
+              <a href={`https://wa.me/${process.env.NEXT_PUBLIC_VENDEDOR_WHATSAPP ?? ''}`} style={{ color: '#000000', fontSize: 14, textDecoration: 'none', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.06em', borderBottom: '2px solid #E8003D' }}>WhatsApp</a>
+              <a href={`mailto:${process.env.NEXT_PUBLIC_VENDEDOR_EMAIL ?? ''}`} style={{ color: '#000000', fontSize: 14, textDecoration: 'none', fontWeight: 900, textTransform: 'uppercase', letterSpacing: '0.06em', borderBottom: '2px solid #00C2E0' }}>Email</a>
+            </div>
+          </div>
+        </footer>
+
+      </div>
 
     </div>
   )

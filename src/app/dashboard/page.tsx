@@ -7,44 +7,89 @@ import { createClient } from '@/lib/supabase/client'
 const DISPLAY = { fontFamily: "'Barlow Condensed', sans-serif" }
 
 const CAMPANAS = [
-  { id: 'mundial-2026', nombre: 'Mundial 2026', sub: 'Panini · FIFA Official', total: 980, activa: true, color: '#E8003D', emoji: '🏆', tag: 'MÁS POPULAR' },
-  { id: 'mundial-2026', nombre: 'Album mundial 3Reyes', sub: '3REYES', total: 588, activa: false, color: '#00C2E0', emoji: '⭐', tag: 'PRÓXIMAMENTE' },
-  { id: 'liga-peru-2025', nombre: 'Liga 1 Perú 2025', sub: 'Álbum oficial peruano', total: 320, activa: false, color: '#6B21C8', emoji: '🇵🇪', tag: 'PRÓXIMAMENTE' },
+  {
+    id: 'mundial-2026',
+    nombre: 'Mundial 2026',
+    sub: 'Panini · FIFA Official',
+    total: 980,
+    activa: true,
+    color: '#E8003D',
+    gradiente: 'linear-gradient(135deg, #E8003D 0%, #FF6B35 100%)',
+    emoji: '🏆',
+    tag: 'MÁS POPULAR',
+    bg: '/carrusel/foto1.jpg',
+  },
+  {
+    id: '3reyes-2026',
+    nombre: 'Mundial 3Reyes',
+    sub: '3Reyes · Edición Especial',
+    total: 588,
+    activa: false,
+    color: '#6B21C8',
+    gradiente: 'linear-gradient(135deg, #6B21C8 0%, #A855F7 100%)',
+    emoji: '👑',
+    tag: 'PRÓXIMAMENTE',
+    bg: '',
+  },
+  {
+    id: 'liga-peru-2025',
+    nombre: 'Liga 1 Perú',
+    sub: 'Temporada 2025',
+    total: 320,
+    activa: false,
+    color: '#FFE000',
+    gradiente: 'linear-gradient(135deg, #FFE000 0%, #FF8C00 100%)',
+    emoji: '🇵🇪',
+    tag: 'PRÓXIMAMENTE',
+    bg: '',
+  },
 ]
 
 export default function DashboardPage() {
   const [campanaActiva, setCampanaActiva] = useState<string | null>(null)
-  const [userId, setUserId] = useState<string | null>(null)
+  const [userId, setUserId] = useState<string>('demo-user')
   const [initialTengo, setInitialTengo] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
+  const [stats, setStats] = useState({ tengo: 0, pedidos: 0 })
+  const [userName, setUserName] = useState('')
+
+  useEffect(() => {
+    async function loadUser() {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) return
+
+      setUserId(user.id)
+
+      const [{ data: profile }, { data: tengo }, { count: pedidos }] = await Promise.all([
+        supabase.from('profiles').select('nombre').eq('id', user.id).single(),
+        supabase.from('figuritas_tengo').select('codigo').eq('user_id', user.id),
+        supabase.from('pedidos').select('*', { count: 'exact', head: true }).eq('user_id', user.id),
+      ])
+
+      if (profile) setUserName(profile.nombre)
+      setStats({ tengo: tengo?.length ?? 0, pedidos: pedidos ?? 0 })
+    }
+    loadUser()
+  }, [])
 
   async function seleccionarCampana(id: string) {
     setLoading(true)
     const supabase = createClient()
-
-    // Obtener usuario real
     const { data: { user } } = await supabase.auth.getUser()
-    const uid = user?.id ?? 'demo-user'
-    setUserId(uid)
-
-    // Cargar figuritas que ya tiene
     if (user) {
-      const { data } = await supabase
-        .from('figuritas_tengo')
-        .select('codigo')
-        .eq('user_id', uid)
+      const { data } = await supabase.from('figuritas_tengo').select('codigo').eq('user_id', user.id)
       setInitialTengo(data?.map((f: { codigo: string }) => f.codigo) ?? [])
     }
-
     setCampanaActiva(id)
     setLoading(false)
   }
 
   if (loading) {
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: 300, flexDirection: 'column', gap: 12 }}>
-        <div style={{ ...DISPLAY, fontSize: 32, color: 'var(--text-primary)' }}>Cargando...</div>
-        <p style={{ color: 'var(--text-secondary)', fontSize: 14 }}>Obteniendo tu colección</p>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '60vh', flexDirection: 'column', gap: 16 }}>
+        <div style={{ fontSize: 48 }}>⚽</div>
+        <p style={{ ...DISPLAY, fontSize: 24, color: 'var(--text-secondary)' }}>Cargando tu colección...</p>
       </div>
     )
   }
@@ -53,166 +98,158 @@ export default function DashboardPage() {
     const campana = CAMPANAS.find((c) => c.id === campanaActiva)
     return (
       <div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: '2rem' }}>
-          <button
-            onClick={() => setCampanaActiva(null)}
-            style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 8, padding: '8px 14px', cursor: 'pointer', color: 'var(--text-secondary)', fontSize: 13, fontWeight: 600 }}>
+        {/* Header campaña */}
+        <div style={{ background: campana?.gradiente, borderRadius: 20, padding: '1.5rem 2rem', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+          <button onClick={() => setCampanaActiva(null)}
+            style={{ background: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.3)', borderRadius: 10, padding: '8px 16px', cursor: 'pointer', color: '#fff', fontSize: 13, fontWeight: 600, backdropFilter: 'blur(8px)' }}>
             ← Volver
           </button>
-          <span style={{ fontSize: 36 }}>{campana?.emoji}</span>
-          <div>
-            <h1 style={{ ...DISPLAY, fontSize: 36, fontWeight: 900, color: 'var(--text-primary)', textTransform: 'uppercase' as const, lineHeight: 1 }}>
+          <span style={{ fontSize: 40 }}>{campana?.emoji}</span>
+          <div style={{ flex: 1 }}>
+            <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)', fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', marginBottom: 2 }}>{campana?.sub}</p>
+            <h1 style={{ ...DISPLAY, fontSize: 36, fontWeight: 900, color: '#fff', textTransform: 'uppercase', lineHeight: 1 }}>
               {campana?.nombre}
             </h1>
-            <p style={{ color: 'var(--text-secondary)', fontSize: 13, marginTop: 4 }}>
-              Marca las figuritas que ya tienes — las demás se incluirán en tu pedido
-            </p>
           </div>
-          <div style={{ marginLeft: 'auto', padding: '4px 12px', borderRadius: 6, background: campana?.color, color: ['#00C2E0', '#FFE000'].includes(campana?.color ?? '') ? '#080808' : '#fff', fontSize: 11, fontWeight: 700, letterSpacing: '0.08em' }}>
-            {campana?.tag}
+          <div style={{ background: 'rgba(255,255,255,0.2)', borderRadius: 10, padding: '8px 16px', backdropFilter: 'blur(8px)' }}>
+            <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.8)', marginBottom: 2 }}>Total figuritas</p>
+            <p style={{ ...DISPLAY, fontSize: 28, fontWeight: 900, color: '#fff', lineHeight: 1 }}>{campana?.total}</p>
           </div>
         </div>
 
-        <FiguitasSelector initialTengo={initialTengo} userId={userId ?? 'demo-user'} />
+        <FiguitasSelector initialTengo={initialTengo} userId={userId} />
 
-        <footer style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span>⚽</span>
-            <span style={{ ...DISPLAY, fontSize: 20, fontWeight: 900, color: '#E8003D' }}>TAOFANS</span>
-          </div>
-          <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
-            © 2026 TaoFans · Desarrollado por <strong>Sebastian Mamani</strong>
-          </p>
-          <div style={{ display: 'flex', gap: 16 }}>
-            <a href={`https://wa.me/${process.env.NEXT_PUBLIC_VENDEDOR_WHATSAPP ?? ''}`} style={{ fontSize: 13, color: 'var(--text-secondary)', textDecoration: 'none' }}>WhatsApp</a>
-            <a href={`mailto:${process.env.NEXT_PUBLIC_VENDEDOR_EMAIL ?? ''}`} style={{ fontSize: 13, color: 'var(--text-secondary)', textDecoration: 'none' }}>Email</a>
-          </div>
-        </footer>
+        <Footer />
       </div>
     )
   }
 
   return (
     <div>
-      <div style={{ marginBottom: '2.5rem' }}>
-        <p style={{ ...DISPLAY, fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', color: '#E8003D', marginBottom: 6 }}>BIENVENIDO</p>
-        <h1 style={{ ...DISPLAY, fontSize: 56, fontWeight: 900, color: 'var(--text-primary)', textTransform: 'uppercase' as const, lineHeight: 0.95 }}>
-          ELIGE TU<br />ÁLBUM
+      {/* ── BIENVENIDA PERSONALIZADA ── */}
+      <div style={{ marginBottom: '2rem' }}>
+        <p style={{ fontSize: 14, color: 'var(--text-secondary)', marginBottom: 4 }}>
+          {new Date().getHours() < 12 ? '🌅 Buenos días' : new Date().getHours() < 18 ? '☀️ Buenas tardes' : '🌙 Buenas noches'}{userName ? `, ${userName}` : ''}
+        </p>
+        <h1 style={{ ...DISPLAY, fontSize: 48, fontWeight: 900, color: 'var(--text-primary)', textTransform: 'uppercase', lineHeight: 1 }}>
+          MI COLECCIÓN
         </h1>
-        <p style={{ color: 'var(--text-secondary)', marginTop: 8, fontSize: 15 }}>
-          Selecciona la campaña para registrar tu colección y pedir las que te faltan.
-        </p>
       </div>
-      {/* Carrusel */}
-    <div style={{ position: 'relative', marginBottom: '2.5rem', borderRadius: 16, overflow: 'hidden', height: 280, background: 'var(--bg-card)', border: '1px solid var(--border)' }}>
-      <div id="carrusel" style={{ display: 'flex', height: '100%', overflowX: 'auto', scrollSnapType: 'x mandatory', scrollBehavior: 'smooth', gap: 0 }}>
+
+      {/* ── STATS RÁPIDAS ── */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12, marginBottom: '2rem' }}>
         {[
-          { src: '/carrusel/foto1.png', alt: 'Álbum Mundial 2026' },
-          { src: '/carrusel/foto2.png', alt: 'Figuritas Panini' },
-          { src: '/carrusel/foto3.png', alt: 'Colección Mundial' },
-          
-        ].map((img, i) => (
-          <div key={i} style={{ minWidth: '100%', height: '100%', scrollSnapAlign: 'start', flexShrink: 0, position: 'relative', background: '#1E1E1E', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img
-              src={img.src}
-              alt={img.alt}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              onError={(e) => {
-                // Si no existe la imagen muestra placeholder
-                (e.currentTarget as HTMLImageElement).style.display = 'none'
+          { icon: '🎴', label: 'Figuritas tengo', value: stats.tengo, color: '#00A859', bg: '#00A85915' },
+          { icon: '📦', label: 'Pedidos enviados', value: stats.pedidos, color: '#E8003D', bg: '#E8003D15' },
+          { icon: '🏆', label: 'Álbumes activos', value: 1, color: '#FFE000', bg: '#FFE00015' },
+        ].map((s) => (
+          <div key={s.label} style={{ background: s.bg, border: `1px solid ${s.color}30`, borderRadius: 16, padding: '1.25rem', display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 28 }}>{s.icon}</span>
+            <div>
+              <p style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 2 }}>{s.label}</p>
+              <p style={{ ...DISPLAY, fontSize: 32, fontWeight: 900, color: s.color, lineHeight: 1 }}>{s.value}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── CAMPAÑAS ── */}
+      <div style={{ marginBottom: '2rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
+          <h2 style={{ ...DISPLAY, fontSize: 28, fontWeight: 900, color: 'var(--text-primary)', textTransform: 'uppercase' }}>
+            🎯 Álbumes disponibles
+          </h2>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
+          {CAMPANAS.map((c) => (
+            <div key={c.id}
+              onClick={() => c.activa && seleccionarCampana(c.id)}
+              style={{
+                borderRadius: 20, overflow: 'hidden', cursor: c.activa ? 'pointer' : 'not-allowed',
+                opacity: c.activa ? 1 : 0.6, position: 'relative',
+                transition: 'transform 0.2s, box-shadow 0.2s',
+                boxShadow: c.activa ? `0 8px 32px ${c.color}30` : 'none',
+                border: `1px solid ${c.color}40`,
               }}
-            />
-            {/* Overlay con texto */}
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '1.5rem', background: 'linear-gradient(transparent, rgba(0,0,0,0.8))' }}>
-              <p style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 22, fontWeight: 900, color: '#fff', textTransform: 'uppercase' }}>{img.alt}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+              onMouseEnter={e => { if (c.activa) { (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)'; (e.currentTarget as HTMLElement).style.boxShadow = `0 16px 40px ${c.color}50` }}}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = 'none'; (e.currentTarget as HTMLElement).style.boxShadow = c.activa ? `0 8px 32px ${c.color}30` : 'none' }}
+            >
+              {/* Gradiente header */}
+              <div style={{ background: c.gradiente, padding: '2rem 1.5rem 1.5rem', position: 'relative', overflow: 'hidden' }}>
+                {/* Decorativo */}
+                <div style={{ position: 'absolute', right: -20, top: -20, fontSize: 120, opacity: 0.15, lineHeight: 1 }}>{c.emoji}</div>
 
-      {/* Botones navegación */}
-      <button
-        onClick={() => {
-          const el = document.getElementById('carrusel')
-          if (el) el.scrollBy({ left: -el.offsetWidth, behavior: 'smooth' })
-        }}
-        style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.6)', border: 'none', borderRadius: '50%', width: 40, height: 40, cursor: 'pointer', color: '#fff', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        ‹
-      </button>
-      <button
-        onClick={() => {
-          const el = document.getElementById('carrusel')
-          if (el) el.scrollBy({ left: el.offsetWidth, behavior: 'smooth' })
-        }}
-        style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.6)', border: 'none', borderRadius: '50%', width: 40, height: 40, cursor: 'pointer', color: '#fff', fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        ›
-      </button>
-
-      {/* Dots */}
-      <div style={{ position: 'absolute', bottom: 12, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 6 }}>
-        {[0,1,2,3,4].map((i) => (
-          <button key={i}
-            onClick={() => {
-              const el = document.getElementById('carrusel')
-              if (el) el.scrollTo({ left: el.offsetWidth * i, behavior: 'smooth' })
-            }}
-            style={{ width: 8, height: 8, borderRadius: '50%', background: 'rgba(255,255,255,0.5)', border: 'none', cursor: 'pointer', padding: 0 }} />
-        ))}
-      </div>
-    </div>
-
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
-        {CAMPANAS.map((c) => (
-          <div
-            key={c.id}
-            onClick={() => c.activa && seleccionarCampana(c.id)}
-            onMouseEnter={e => { if (c.activa) { (e.currentTarget as HTMLElement).style.borderColor = c.color; (e.currentTarget as HTMLElement).style.transform = 'translateY(-4px)' }}}
-            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = 'var(--border)'; (e.currentTarget as HTMLElement).style.transform = 'none' }}
-            style={{
-              background: 'var(--bg-card)', border: '1px solid var(--border)',
-              borderRadius: 16, overflow: 'hidden',
-              opacity: c.activa ? 1 : 0.5,
-              cursor: c.activa ? 'pointer' : 'not-allowed',
-              transition: 'transform 0.2s, border-color 0.2s',
-            }}>
-            <div style={{ height: 4, background: c.color }} />
-            <div style={{ padding: '1.5rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
-                <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.1em', padding: '4px 10px', borderRadius: 4,background: c.activa ? c.color : '#666666', color: c.activa && ['#00C2E0', '#FFE000'].includes(c.color) ? '#080808' : '#fff' }}>
-                  {c.tag}
-                </span>
-                <span style={{ fontSize: 28 }}>{c.emoji}</span>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
+                  <div>
+                    <span style={{ background: 'rgba(255,255,255,0.2)', color: '#fff', fontSize: 10, fontWeight: 700, padding: '3px 10px', borderRadius: 99, letterSpacing: '0.1em', backdropFilter: 'blur(8px)' }}>
+                      {c.tag}
+                    </span>
+                    <h3 style={{ ...DISPLAY, fontSize: 32, fontWeight: 900, color: '#fff', textTransform: 'uppercase', lineHeight: 1, marginTop: 10, marginBottom: 4 }}>
+                      {c.nombre}
+                    </h3>
+                    <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.75)' }}>{c.sub}</p>
+                  </div>
+                  <span style={{ fontSize: 44 }}>{c.emoji}</span>
+                </div>
               </div>
-              <h3 style={{ ...DISPLAY, fontSize: 30, fontWeight: 900, color: 'var(--text-primary)', textTransform: 'uppercase' as const, lineHeight: 1, marginBottom: 4 }}>
-                {c.nombre}
-              </h3>
-              <p style={{ fontSize: 13, color: 'var(--text-secondary)', marginBottom: '1.25rem' }}>{c.sub}</p>
-              <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--text-secondary)', marginBottom: 6 }}>
-                <span>Total figuritas</span>
-                <span>{c.total}</span>
-              </div>
-              <div style={{ height: 3, background: 'var(--border)', borderRadius: 99, marginBottom: '1.25rem' }} />
-              <div style={{ padding: '10px', borderRadius: 8, background: c.activa ? c.color : 'var(--border)', color: ['#00C2E0', '#FFE000'].includes(c.color) || !c.activa ? '#080808' : '#fff', textAlign: 'center', fontSize: 13, fontWeight: 700, letterSpacing: '0.06em', ...DISPLAY }}>
-                {c.activa ? 'VER ÁLBUM →' : 'PRÓXIMAMENTE'}
+
+              {/* Footer de la card */}
+              <div style={{ background: 'var(--bg-card)', padding: '1.25rem 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div>
+                  <p style={{ fontSize: 11, color: 'var(--text-secondary)', marginBottom: 2 }}>Total figuritas</p>
+                  <p style={{ ...DISPLAY, fontSize: 24, fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1 }}>{c.total}</p>
+                </div>
+                <div style={{ background: c.activa ? c.color : 'var(--border)', color: c.activa ? (c.color === '#FFE000' ? '#080808' : '#fff') : 'var(--text-secondary)', padding: '10px 20px', borderRadius: 10, fontWeight: 700, fontSize: 13, ...DISPLAY, letterSpacing: '0.06em' }}>
+                  {c.activa ? 'VER ÁLBUM →' : 'PRÓXIMAMENTE'}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
-      <footer style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <span>⚽</span>
-          <span style={{ ...DISPLAY, fontSize: 20, fontWeight: 900, color: '#E8003D' }}>TAOFANS</span>
+      {/* ── ACCESOS RÁPIDOS ── */}
+      <div style={{ marginBottom: '2rem' }}>
+        <h2 style={{ ...DISPLAY, fontSize: 28, fontWeight: 900, color: 'var(--text-primary)', textTransform: 'uppercase', marginBottom: '1.25rem' }}>
+          ⚡ Accesos rápidos
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12 }}>
+          {[
+            { icon: '📋', titulo: 'Mis pedidos', desc: 'Ver historial de pedidos', href: '/dashboard/mis-pedidos', color: '#00C2E0' },
+            { icon: '💬', titulo: 'Contactar vendedor', desc: 'WhatsApp directo', href: `https://wa.me/${process.env.NEXT_PUBLIC_VENDEDOR_WHATSAPP}`, color: '#00A859', external: true },
+            { icon: '🎴', titulo: 'Pedir faltantes', desc: 'Generar pedido rápido', href: '#campanas', color: '#E8003D' },
+          ].map((item) => (
+            <a key={item.titulo}
+              href={item.href}
+              target={item.external ? '_blank' : undefined}
+              style={{ background: 'var(--bg-card)', border: `1px solid var(--border)`, borderRadius: 16, padding: '1.25rem', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 14, transition: 'all 0.2s', borderLeft: `4px solid ${item.color}` }}>
+              <span style={{ fontSize: 28 }}>{item.icon}</span>
+              <div>
+                <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 2 }}>{item.titulo}</p>
+                <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>{item.desc}</p>
+              </div>
+            </a>
+          ))}
         </div>
-        <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
-          © 2026 TaoFans · Desarrollado por <strong>Sebastian Mamani</strong>
-        </p>
-        <div style={{ display: 'flex', gap: 16 }}>
-          <a href={`https://wa.me/${process.env.NEXT_PUBLIC_VENDEDOR_WHATSAPP ?? ''}`} style={{ fontSize: 13, color: 'var(--text-secondary)', textDecoration: 'none' }}>WhatsApp</a>
-          <a href={`mailto:${process.env.NEXT_PUBLIC_VENDEDOR_EMAIL ?? ''}`} style={{ fontSize: 13, color: 'var(--text-secondary)', textDecoration: 'none' }}>Email</a>
-        </div>
-      </footer>
+      </div>
+
+      <Footer />
     </div>
+  )
+}
+
+function Footer() {
+  return (
+    <footer style={{ marginTop: '4rem', paddingTop: '2rem', borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+      <span style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: 20, fontWeight: 900, color: '#E8003D' }}>TAOFANS</span>
+      <p style={{ fontSize: 12, color: 'var(--text-secondary)' }}>
+        © 2026 TaoFans · Desarrollado por <strong>Sebastian Mamani</strong>
+      </p>
+      <div style={{ display: 'flex', gap: 16 }}>
+        <a href={`https://wa.me/${process.env.NEXT_PUBLIC_VENDEDOR_WHATSAPP ?? ''}`} style={{ fontSize: 13, color: 'var(--text-secondary)', textDecoration: 'none' }}>WhatsApp</a>
+        <a href={`mailto:${process.env.NEXT_PUBLIC_VENDEDOR_EMAIL ?? ''}`} style={{ fontSize: 13, color: 'var(--text-secondary)', textDecoration: 'none' }}>Email</a>
+      </div>
+    </footer>
   )
 }

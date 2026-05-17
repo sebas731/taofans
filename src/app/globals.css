@@ -147,3 +147,154 @@ body {
   .mobile-only { display: block !important; }
   .desktop-only { display: none !important; }
 }
+/* ── ANIMACIONES FIFA 26 ── */
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px) skewX(-6deg); }
+  to   { opacity: 1; transform: translateY(0) skewX(-6deg); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes floatGeo {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-18px) rotate(3deg); }
+}
+
+@keyframes floatGeoReverse {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(14px) rotate(-4deg); }
+}
+
+@keyframes slideInBadge {
+  from { opacity: 0; transform: rotate(-2deg) skewX(-10deg) translateX(-60px); }
+  to   { opacity: 1; transform: rotate(-2deg) skewX(-10deg) translateX(0); }
+}
+
+@keyframes pulseRed {
+  0%, 100% { box-shadow: 6px 6px 0px #E8003D; }
+  50%       { box-shadow: 8px 8px 0px #E8003D, 0 0 20px rgba(232,0,61,0.3); }
+}
+
+@keyframes marqueeFifa {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.85) rotate(2deg); }
+  to   { opacity: 1; transform: scale(1) rotate(2deg); }
+}
+
+@keyframes barraSlide {
+  from { transform: scaleX(0); transform-origin: left; }
+  to   { transform: scaleX(1); transform-origin: left; }
+}
+
+@keyframes statPop {
+  0%   { opacity: 0; transform: skewX(-10deg) scale(0.7); }
+  70%  { transform: skewX(-10deg) scale(1.05); }
+  100% { opacity: 1; transform: skewX(-10deg) scale(1); }
+}
+
+/* Hero headline animado */
+.hero-h1 span:nth-child(1) { animation: fadeInUp 0.7s ease both; animation-delay: 0.1s; }
+.hero-h1 span:nth-child(2) { animation: fadeInUp 0.7s ease both; animation-delay: 0.25s; }
+.hero-h1 span:nth-child(3) { animation: fadeInUp 0.7s ease both; animation-delay: 0.4s; }
+
+/* Badge hero */
+.hero-badge { animation: slideInBadge 0.6s ease both; animation-delay: 0.05s; }
+
+/* Álbum flotante */
+.album-frame { animation: scaleIn 0.8s cubic-bezier(0.34,1.56,0.64,1) both; animation-delay: 0.3s; }
+
+/* Stats */
+.stat-item:nth-child(1) { animation: statPop 0.5s ease both; animation-delay: 0.6s; }
+.stat-item:nth-child(2) { animation: statPop 0.5s ease both; animation-delay: 0.75s; }
+.stat-item:nth-child(3) { animation: statPop 0.5s ease both; animation-delay: 0.9s; }
+
+/* Formas geométricas flotantes */
+.geo-float-1 { animation: floatGeo 6s ease-in-out infinite; }
+.geo-float-2 { animation: floatGeoReverse 8s ease-in-out infinite; }
+.geo-float-3 { animation: floatGeo 7s ease-in-out infinite; animation-delay: 1s; }
+.geo-float-4 { animation: floatGeoReverse 5s ease-in-out infinite; animation-delay: 2s; }
+
+/* Cards de campañas */
+.campana-card {
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease !important;
+}
+.campana-card:hover {
+  transform: rotate(0deg) translateY(-8px) scale(1.02) !important;
+  z-index: 2;
+}
+
+/* Cards de servicios */
+.servicio-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: fadeInUp 0.6s ease both;
+}
+.servicio-card:nth-child(1) { animation-delay: 0.1s; }
+.servicio-card:nth-child(2) { animation-delay: 0.25s; }
+.servicio-card:nth-child(3) { animation-delay: 0.4s; }
+
+/* Nav link hover */
+.nav-link {
+  position: relative;
+  transition: color 0.2s ease !important;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 10px; right: 10px;
+  height: 3px;
+  background: #E8003D;
+  transform: scaleX(0);
+  transition: transform 0.2s ease;
+}
+.nav-link:hover::after { transform: scaleX(1); }
+.nav-link:hover { color: #E8003D !important; }
+
+/* Nav btn hover */
+.nav-btn { transition: all 0.2s ease !important; }
+.nav-btn:hover { background: #000 !important; color: #fff !important; }
+
+/* Botón CTA pulse */
+.btn-cta-main {
+  animation: pulseRed 2.5s ease-in-out infinite;
+  transition: transform 0.2s ease !important;
+}
+.btn-cta-main:hover { transform: skewX(-10deg) rotate(1deg) translateY(-3px) !important; }
+
+/* Stats nosotros hover */
+.stat-box {
+  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s ease !important;
+}
+.stat-box:hover { transform: rotate(0deg) skewX(-5deg) scale(1.08) !important; }
+
+/* Feature items hover */
+.feature-item {
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+.feature-item:hover {
+  transform: skewX(-6deg) translateX(6px) !important;
+  box-shadow: 6px 6px 0px #000 !important;
+}
+
+/* Scroll reveal — usa IntersectionObserver via script */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
