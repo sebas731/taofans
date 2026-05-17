@@ -8,7 +8,7 @@ const CAMPANAS = [
     id: 'mundial-2026',
     nombre: 'Mundial 2026',
     sub: 'Panini · FIFA Official',
-    total: 670,
+    total: 980,
     activa: true,
     accentColor: '#E8003D',
     emoji: '🏆',
@@ -17,14 +17,14 @@ const CAMPANAS = [
   },
   {
     id: 'champions-2025',
-    nombre: 'Champions 24/25',
-    sub: 'Panini · UEFA Official',
+    nombre: 'Album Mundial 3Reyes',
+    sub: '3REYES',
     total: 588,
-    activa: true,
+    activa: false,
     accentColor: '#00C2E0',
     emoji: '⭐',
-    tag: 'DISPONIBLE',
-    tagStyle: { background: '#00C2E0', color: '#080808' },
+    tag: 'PRÓXIMAMENTE',
+    tagStyle: { background: '#1E1E1E', color: '#fff' },
   },
   {
     id: 'liga-peru-2025',
@@ -55,17 +55,37 @@ export default async function HomePage() {
     <div style={{ background: '#080808', minHeight: '100vh', color: '#fff' }}>
 
       {/* ── NAV ── */}
-      <nav style={{ position: 'sticky', top: 0, zIndex: 50, borderBottom: '1px solid #1E1E1E', background: 'rgba(8,8,8,0.95)', backdropFilter: 'blur(10px)' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 1.5rem', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 24 }}>⚽</span>
-            <span style={{ ...DISPLAY, fontSize: 28, fontWeight: 900, color: '#FFE000', letterSpacing: '0.08em' }}>TAOFANS</span>
+      <nav style={{ position: 'sticky', top: 0, zIndex: 50, borderBottom: '1px solid #1E1E1E', background: 'rgba(8,8,8,0.97)', backdropFilter: 'blur(12px)' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 2rem', height: 68, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+
+          {/* Logo */}
+          <Link href="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ ...DISPLAY, fontSize: 26, fontWeight: 900, color: '#fff', letterSpacing: '0.06em' }}>
+              TAO<span style={{ color: '#E8003D' }}>FANS</span>
+            </span>
+          </Link>
+
+          {/* Links centro — solo desktop */}
+          <div style={{ display: 'flex', gap: 4, position: 'absolute', left: '50%', transform: 'translateX(-50%)' }} className="desktop-only">
+            {[
+              { href: '#campanas', label: 'Álbumes' },
+              { href: '#servicios', label: 'Cómo funciona' },
+              { href: '#nosotros', label: 'Nosotros' },
+            ].map((item) => (
+              <a key={item.href} href={item.href} className="nav-link"
+                style={{ color: 'rgba(255,255,255,0.6)', fontSize: 14, textDecoration: 'none', fontWeight: 500, padding: '8px 14px', borderRadius: 8 }}>
+                {item.label}
+              </a>
+            ))}
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <Link href="/auth/login" style={{ color: 'rgba(255,255,255,0.5)', fontSize: 14, textDecoration: 'none', fontWeight: 500 }}>
+
+          {/* Botones derecha */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <Link href="/auth/login" className="nav-btn"
+              style={{ color: 'rgba(255,255,255,0.7)', fontSize: 14, textDecoration: 'none', fontWeight: 500, padding: '8px 16px', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)' }}>
               Iniciar sesión
             </Link>
-            <Link href="/auth/registro" className="btn-primary" style={{ fontSize: 13, padding: '8px 20px' }}>
+            <Link href="/auth/registro" className="btn-primary" style={{ fontSize: 14, padding: '8px 20px' }}>
               EMPEZAR GRATIS
             </Link>
           </div>
@@ -74,13 +94,9 @@ export default async function HomePage() {
 
       {/* ── HERO ── */}
       <section style={{ position: 'relative', overflow: 'hidden', paddingTop: '5rem', paddingBottom: '6rem', paddingLeft: '1.5rem', paddingRight: '1.5rem' }}>
-
-        {/* Big decorative "26" background */}
         <div style={{ position: 'absolute', right: -60, top: -40, ...DISPLAY, fontSize: 'clamp(300px, 40vw, 500px)', fontWeight: 900, color: 'rgba(255,255,255,0.025)', lineHeight: 1, userSelect: 'none', pointerEvents: 'none' }}>
           26
         </div>
-
-        {/* Color accent bars top */}
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, display: 'flex', height: 4 }}>
           {['#E8003D','#6B21C8','#00C2E0','#FFE000','#00A859','#FF5C00'].map((c, i) => (
             <div key={i} style={{ flex: 1, background: c }} />
@@ -91,80 +107,59 @@ export default async function HomePage() {
 
           {/* LEFT */}
           <div style={{ flex: 1 }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#E8003D', borderRadius: 4, padding: '6px 14px', marginBottom: '1.5rem' }}>
+              <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em' }}>🔥 CAMPAÑA ACTIVA</span>
+              <span style={{ fontSize: 12, fontWeight: 400, opacity: 0.85 }}>Mundial 2026 Panini</span>
+            </div>
 
-          {/* Badge */}
+            <h1 style={{ ...DISPLAY, fontSize: 'clamp(72px, 12vw, 160px)', fontWeight: 900, lineHeight: 0.9, marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '-0.01em' }}>
+              <span style={{ display: 'block', color: '#fff' }}>COMPLETA</span>
+              <span style={{ display: 'block', color: '#FFE000' }}>TU ÁLBUM</span>
+              <span style={{ display: 'block', color: 'rgba(255,255,255,0.2)' }}>SIN VUELTAS.</span>
+            </h1>
 
-          {/* Badge */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#E8003D', borderRadius: 4, padding: '6px 14px', marginBottom: '1.5rem' }}>
-            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em' }}>🔥 CAMPAÑA ACTIVA</span>
-            <span style={{ fontSize: 12, fontWeight: 400, opacity: 0.85 }}>Mundial 2026 Panini</span>
+            <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.55)', maxWidth: 520, lineHeight: 1.7, marginBottom: '2.5rem' }}>
+              Marca las figuritas que te faltan, elige tu álbum y coordina el pedido directo por WhatsApp. Rápido, fácil y con stock real.
+            </p>
+
+            <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              <Link href="/auth/registro" className="btn-primary" style={{ fontSize: 16 }}>
+                ✨ EMPEZAR GRATIS
+              </Link>
+              <a href="#campanas" className="btn-ghost" style={{ fontSize: 15 }}>
+                Ver álbumes ↓
+              </a>
+            </div>
+
+            <div style={{ display: 'flex', gap: '3rem', marginTop: '4rem', flexWrap: 'wrap' }}>
+              {[
+                { num: '+500', label: 'Coleccionistas' },
+                { num: '+10', label: 'Álbumes distintos' },
+                { num: '100%', label: 'Figuritas originales' },
+                { num: '24h', label: 'Respuesta máxima' },
+              ].map((s) => (
+                <div key={s.label}>
+                  <div style={{ ...DISPLAY, fontSize: 40, fontWeight: 900, color: '#FFE000', lineHeight: 1 }}>{s.num}</div>
+                  <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginTop: 4 }}>{s.label}</div>
+                </div>
+              ))}
+            </div>
           </div>
-
-          {/* Main headline */}
-          <h1 style={{ ...DISPLAY, fontSize: 'clamp(72px, 12vw, 160px)', fontWeight: 900, lineHeight: 0.9, marginBottom: '1.5rem', textTransform: 'uppercase', letterSpacing: '-0.01em' }}>
-            <span style={{ display: 'block', color: '#fff' }}>COMPLETA</span>
-            <span style={{ display: 'block', color: '#FFE000' }}>TU ÁLBUM</span>
-            <span style={{ display: 'block', color: 'rgba(255,255,255,0.2)' }}>SIN VUELTAS.</span>
-          </h1>
-
-          <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.55)', maxWidth: 520, lineHeight: 1.7, marginBottom: '2.5rem' }}>
-            Marca las figuritas que te faltan, elige tu álbum y coordina el pedido directo por WhatsApp. Rápido, fácil y con stock real.
-          </p>
-
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <Link href="/auth/registro" className="btn-primary" style={{ fontSize: 16 }}>
-              ✨ EMPEZAR GRATIS
-            </Link>
-            <a href="#campanas" className="btn-ghost" style={{ fontSize: 15 }}>
-              Ver álbumes ↓
-            </a>
-          </div>
-
-          {/* Stats row */}
-          <div style={{ display: 'flex', gap: '3rem', marginTop: '4rem', flexWrap: 'wrap' }}>
-            {[
-              { num: '+500', label: 'Coleccionistas' },
-              { num: '+10', label: 'Álbumes distintos' },
-              { num: '100%', label: 'Figuritas originales' },
-              { num: '24h', label: 'Respuesta máxima' },
-            ].map((s) => (
-              <div key={s.label}>
-                <div style={{ ...DISPLAY, fontSize: 40, fontWeight: 900, color: '#FFE000', lineHeight: 1 }}>{s.num}</div>
-                <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginTop: 4 }}>{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>{/* cierre LEFT */}
 
           {/* Imagen álbum */}
           <div style={{ flexShrink: 0, width: 320, position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', alignSelf: 'flex-start', marginTop: '2rem' }}>
-            
-            {/* Círculo grande fondo */}
             <div style={{ position: 'absolute', width: 340, height: 340, borderRadius: '50%', border: '2px solid rgba(255,224,0,0.15)', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
-            
-            {/* Círculo mediano */}
             <div style={{ position: 'absolute', width: 260, height: 260, borderRadius: '50%', border: '2px solid rgba(232,0,61,0.2)', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }} />
-
-            {/* Cuadrado con bordes redondeados rotado */}
             <div style={{ position: 'absolute', width: 280, height: 280, borderRadius: 40, border: '1px solid rgba(0,194,224,0.2)', top: '50%', left: '50%', transform: 'translate(-50%, -50%) rotate(15deg)' }} />
-
-            {/* Imagen */}
-            <img
-              src="/album.png"
-              alt="Álbum Mundial 2026 Panini"
-              style={{ width: '85%', borderRadius: 16, transform: 'rotate(-3deg)', position: 'relative', zIndex: 1 }}
-            />
+            <img src="/album.png" alt="Álbum Mundial 2026 Panini" style={{ width: '85%', borderRadius: 16, transform: 'rotate(-3deg)', position: 'relative', zIndex: 1 }} />
           </div>
-
         </div>
       </section>
 
-      {/* ── MARQUEE TICKER ── */}
-
-      {/* ── MARQUEE TICKER ── */}
+      {/* ── MARQUEE ── */}
       <div style={{ background: '#FFE000', overflow: 'hidden', padding: '10px 0', borderTop: '1px solid #1E1E1E' }}>
         <div className="marquee-inner" style={{ color: '#080808', fontWeight: 700, fontSize: 13, letterSpacing: '0.12em', fontFamily: "'Barlow Condensed', sans-serif" }}>
-          {Array(6).fill('⚽ MUNDIAL 2026 · PANINI OFICIAL · FIGURITAS GARANTIZADAS · PÍDE POR WHATSAPP · COMPLETA TU ÁLBUM · ').map((t, i) => (
+          {Array(6).fill('⚽ MUNDIAL 2026 · PANINI OFICIAL · FIGURITAS GARANTIZADAS · PIDE POR WHATSAPP · COMPLETA TU ÁLBUM · ').map((t, i) => (
             <span key={i}>{t}</span>
           ))}
         </div>
@@ -173,14 +168,12 @@ export default async function HomePage() {
       {/* ── CAMPAÑAS ── */}
       <section id="campanas" style={{ padding: '6rem 1.5rem' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-
           <div style={{ marginBottom: '3rem' }}>
             <div style={{ ...DISPLAY, fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', color: '#FFE000', marginBottom: 8 }}>CAMPAÑAS ACTIVAS</div>
             <h2 style={{ ...DISPLAY, fontSize: 'clamp(48px, 7vw, 80px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 0.95, color: '#fff' }}>
               ELIGE TU<br />ÁLBUM
             </h2>
           </div>
-
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20 }}>
             {CAMPANAS.map((c) => (
               <CampanaCard key={c.id} c={c} />
@@ -189,8 +182,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── CÓMO FUNCIONA ── */}
-      <section style={{ padding: '6rem 1.5rem', borderTop: '1px solid #1E1E1E' }}>
+      {/* ── SERVICIOS ── */}
+      <section id="servicios" style={{ padding: '6rem 1.5rem', borderTop: '1px solid #1E1E1E' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <div style={{ marginBottom: '3rem' }}>
             <div style={{ ...DISPLAY, fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', color: '#00C2E0', marginBottom: 8 }}>SERVICIOS</div>
@@ -198,12 +191,11 @@ export default async function HomePage() {
               ¿CÓMO<br />FUNCIONA?
             </h2>
           </div>
-
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 1, background: '#1E1E1E', borderRadius: 16, overflow: 'hidden' }}>
             {[
-              { num: '01', icon: '📋', color: '#E8003D', titulo: 'Registra tus faltantes', desc: 'Crea tu cuenta gratis, elige el álbum y marca una por una las figuritas que te faltan. Tu lista se guarda automáticamente.' },
-              { num: '02', icon: '💬', color: '#FFE000', titulo: 'Envia el pedido por WhatsApp', desc: 'Con un clic generamos el mensaje con todas tus figuritas y lo mandamos directo a nuestro WhatsApp para coordinar la entrega.' },
-              { num: '03', icon: '🏆', color: '#00C2E0', titulo: 'Completa tu álbum', desc: 'Coordinamos la entrega, te enviamos lo que necesitas y actualiza tu progreso. Así de simple y sin vueltas.' },
+              { num: '01', icon: '📋', color: '#E8003D', titulo: 'Registra tus figuritas', desc: 'Crea tu cuenta gratis, elige el álbum y marca las figuritas que ya tienes. Tu progreso se guarda automáticamente.' },
+              { num: '02', icon: '💬', color: '#FFE000', titulo: 'Envía el pedido por WhatsApp', desc: 'Con un clic generamos el mensaje con todas tus figuritas faltantes y lo enviamos directo a nuestro WhatsApp.' },
+              { num: '03', icon: '🏆', color: '#00C2E0', titulo: 'Completa tu álbum', desc: 'Coordinamos la entrega, te enviamos lo que necesitas y actualizas tu progreso. Así de simple.' },
             ].map((s) => (
               <div key={s.num} style={{ background: '#111', padding: '2.5rem 2rem', position: 'relative', overflow: 'hidden' }}>
                 <div style={{ ...DISPLAY, fontSize: 100, fontWeight: 900, color: 'rgba(255,255,255,0.04)', position: 'absolute', top: -10, right: 16, lineHeight: 1 }}>{s.num}</div>
@@ -217,8 +209,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── SOBRE NOSOTROS ── */}
-      <section style={{ padding: '6rem 1.5rem', borderTop: '1px solid #1E1E1E' }}>
+      {/* ── NOSOTROS ── */}
+      <section id="nosotros" style={{ padding: '6rem 1.5rem', borderTop: '1px solid #1E1E1E' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', alignItems: 'center' }}>
           <div>
             <div style={{ ...DISPLAY, fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', color: '#6B21C8', marginBottom: 8 }}>QUIÉNES SOMOS</div>
@@ -226,10 +218,10 @@ export default async function HomePage() {
               SOMOS<br /><span style={{ color: '#FFE000' }}>TAOFANS</span>
             </h2>
             <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.5)', lineHeight: 1.8, marginBottom: '1rem' }}>
-              Somos coleccionistas apasionados que decidimos hacer más fácil el proceso de completar álbumes. Entendemos la emoción de pegar la última figurita que faltaba.
+              Somos coleccionistas apasionados que decidimos hacer más fácil el proceso de completar álbumes. Entendemos la emoción de pegar la última figurita.
             </p>
             <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.5)', lineHeight: 1.8, marginBottom: '2.5rem' }}>
-              Contamos con stock permanente de los álbumes más populares y atención personalizada. Conseguís exactamente lo que necesitás, cuando lo necesitás.
+              Contamos con stock permanente de los álbumes más populares y atención personalizada para que consigas lo que necesitas cuando lo necesitas.
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12 }}>
               {[
@@ -244,7 +236,6 @@ export default async function HomePage() {
               ))}
             </div>
           </div>
-
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {[
               { color: '#E8003D', icon: '✅', titulo: 'Figuritas 100% originales', desc: 'Solo trabajamos con productos Panini y editoriales oficiales.' },
@@ -267,8 +258,7 @@ export default async function HomePage() {
       {/* ── CTA FINAL ── */}
       <section style={{ padding: '6rem 1.5rem', borderTop: '1px solid #1E1E1E', textAlign: 'center' }}>
         <div style={{ maxWidth: 800, margin: '0 auto' }}>
-          {/* Color bar */}
-          <div style={{ display: 'flex', height: 6, borderRadius: 99, overflow: 'hidden', marginBottom: '3rem', maxWidth: 200, margin: '0 auto 3rem' }}>
+          <div style={{ display: 'flex', height: 6, borderRadius: 99, overflow: 'hidden', maxWidth: 200, margin: '0 auto 3rem' }}>
             {['#E8003D','#6B21C8','#00C2E0','#FFE000'].map((c, i) => <div key={i} style={{ flex: 1, background: c }} />)}
           </div>
           <h2 style={{ ...DISPLAY, fontSize: 'clamp(56px, 10vw, 120px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 0.9, marginBottom: '1.5rem' }}>
@@ -276,7 +266,7 @@ export default async function HomePage() {
             <span style={{ color: '#FFE000' }}>COMPLETARLO?</span>
           </h2>
           <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.45)', marginBottom: '2.5rem' }}>
-            Creá tu cuenta gratis, marcá tus faltantes y coordiná el pedido hoy mismo.
+            Crea tu cuenta gratis, marca tus faltantes y coordina el pedido hoy mismo.
           </p>
           <Link href="/auth/registro" className="btn-primary" style={{ fontSize: 18, padding: '1rem 3rem' }}>
             ✨ EMPEZAR GRATIS AHORA
@@ -288,11 +278,8 @@ export default async function HomePage() {
       {/* ── FOOTER ── */}
       <footer style={{ borderTop: '1px solid #1E1E1E', padding: '2rem 1.5rem' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span>⚽</span>
-            <span style={{ ...DISPLAY, fontSize: 22, fontWeight: 900, color: '#FFE000', letterSpacing: '0.08em' }}>TAOFANS</span>
-          </div>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>© 2026 TaoFans. Hecho con pasión por el fútbol.</p>
+          <span style={{ ...DISPLAY, fontSize: 22, fontWeight: 900, color: '#FFE000', letterSpacing: '0.08em' }}>TAOFANS</span>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)' }}>© 2026 TaoFans · Desarrollado por Sebastian Mamani</p>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             <a href={`https://wa.me/${process.env.NEXT_PUBLIC_VENDEDOR_WHATSAPP ?? ''}`} style={{ color: 'rgba(255,255,255,0.35)', fontSize: 13, textDecoration: 'none' }}>WhatsApp</a>
             <a href={`mailto:${process.env.NEXT_PUBLIC_VENDEDOR_EMAIL ?? ''}`} style={{ color: 'rgba(255,255,255,0.35)', fontSize: 13, textDecoration: 'none' }}>Email</a>

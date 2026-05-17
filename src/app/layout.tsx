@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import './globals.css'
+import './globals.css' 
 
 export const metadata: Metadata = {
   title: 'TaoFans | Figuritas del Mundial 2026',
