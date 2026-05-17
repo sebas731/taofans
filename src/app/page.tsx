@@ -233,7 +233,7 @@ export default async function HomePage() {
               { 
                 num: '26', 
                 step: '01',
-                imgSrc: '/selecciona.png',
+                imgSrc: '/selecciona.PNG',
                 titulo: 'Checklist Digital', 
                 desc: 'Registra tus faltantes seleccionando los casilleros de tu álbum. La plataforma calcula tu porcentaje exacto de completado automáticamente.',
                 color: '#E8003D',
