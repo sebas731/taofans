@@ -44,10 +44,10 @@ export default function DashboardNav({ user, esAdmin = false }: Props) {
 
         {/* Logo */}
         <Link href="/dashboard" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 10, flexShrink: 0 }}>
-          <img src="/logo.png" alt="TaoFans" style={{ height: 32, width: 'auto' }}
-            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }} />
+         {/*img src="/logo.png" alt="TaoFans" style={{ height: 32, width: 'auto' }}
+            onError={(e) => { (e.currentTarget as HTMLImageElement).style.display = 'none' }} />*/}
           <span style={{ ...DISPLAY, fontSize: 24, fontWeight: 900, letterSpacing: '0.06em' }}>
-            TAO<span style={{ color: '#E8003D' }}>FANS</span>
+            <span style={{ color: '#E8003D' }}>TAOFANS</span>
           </span>
         </Link>
 

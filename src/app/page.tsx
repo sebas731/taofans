@@ -69,13 +69,12 @@ export default async function HomePage() {
       position: 'relative'
     }}>
       
-      {/* ── FONDO DE FORMAS GEOMÉTRICAS VIBRANTES (ESTILO ARTE DEL POSTER) ── */}
+      {/* ── FONDO DE FORMAS GEOMÉTRICAS VIBRANTES ── */}
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '100%', pointerEvents: 'none', zIndex: 0, overflow: 'hidden' }}>
-        {/* Franjas y polígonos gigantes cruzados en el fondo con opacidad controlada para no cansar la vista */}
         <div className="geo-float-1" style={{ position: 'absolute', top: '-5rem', right: '-10rem', width: '800px', height: '1200px', background: '#6B21C8', clipPath: 'polygon(40% 0%, 100% 0%, 60% 100%, 0% 100%)', opacity: 0.05 }} />
         <div className="geo-float-2" style={{ position: 'absolute', top: '20rem', left: '-15rem', width: '700px', height: '900px', background: '#E8003D', clipPath: 'polygon(0% 20%, 100% 0%, 80% 100%, 0% 80%)', opacity: 0.04 }} />
         <div className="geo-float-3" style={{ position: 'absolute', top: '50rem', right: '-5rem', width: '600px', height: '600px', background: '#FFD700', borderRadius: '50%', opacity: 0.06 }} />
-        <div className="geo-float-4"style={{ position: 'absolute', top: '90rem', left: '-5rem', width: '900px', height: '1000px', background: '#00C2E0', clipPath: 'polygon(20% 0%, 100% 30%, 70% 100%, 0% 80%)', opacity: 0.04 }} />
+        <div className="geo-float-4" style={{ position: 'absolute', top: '90rem', left: '-5rem', width: '900px', height: '1000px', background: '#00C2E0', clipPath: 'polygon(20% 0%, 100% 30%, 70% 100%, 0% 80%)', opacity: 0.04 }} />
       </div>
 
       <BarraMundial height={10} />
@@ -113,17 +112,15 @@ export default async function HomePage() {
         </div>
       </nav>
 
-      {/* ── HERO CON DISEÑO CORTE DINÁMICO ── */}
+      {/* ── HERO ── */}
       <section style={{ position: 'relative', paddingTop: '8rem', paddingBottom: '9rem', paddingLeft: '1.5rem', paddingRight: '1.5rem', zIndex: 1 }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', gap: '5rem', flexWrap: 'wrap' }}>
           
           <div style={{ flex: 1, minWidth: 320 }}>
-            {/* Tag Estilo Poster Inclinado */}
             <div className="hero-badge" style={{ display: 'inline-flex', alignItems: 'center', background: '#000000', color: '#ffffff', padding: '10px 20px', marginBottom: '2.5rem', fontWeight: 900, fontSize: 12, letterSpacing: '0.15em', transform: 'rotate(-2deg) skewX(-10deg)', boxShadow: '4px 4px 0px #FFD700' }}>
               ⚡ EN STOCK · MUNDIAL 2026 ACTIVO
             </div>
 
-            {/* Tipografía masiva y superpuesta */}
             <h1 className="hero-h1" style={{ ...DISPLAY, fontSize: 'clamp(60px, 9vw, 115px)', fontWeight: 900, lineHeight: 0.78, marginBottom: '2.5rem', textTransform: 'uppercase', letterSpacing: '-0.04em', color: '#000000' }}>
               <span style={{ display: 'block', transform: 'skewX(-6deg)' }}>COMPLETA TU</span>
               <span style={{ display: 'block', color: '#6B21C8', transform: 'skewX(-6deg) rotate(-1deg)', transformOrigin: 'left' }}>COLECCIÓN</span>
@@ -143,7 +140,6 @@ export default async function HomePage() {
               </a>
             </div>
 
-            {/* Bloques de Estadísticas Estilo Módulos del Poster */}
             <div style={{ display: 'flex', gap: '2rem', marginTop: '5.5rem', flexWrap: 'wrap' }}>
               {[
                 { num: '+500', label: 'Coleccionistas', bg: '#6B21C8' },
@@ -158,11 +154,7 @@ export default async function HomePage() {
             </div>
           </div>
 
-          {/* ARTE DEL ÁLBUM ENMARCADO EN POLÍGONO DEL POSTER */}
-          
           <div className="album-frame" style={{ flexShrink: 0, width: 380, margin: '0 auto', position: 'relative', transform: 'rotate(2deg)' }}>
-            {/* Fondo poligonal agresivo que sobresale */}
-            
             <div style={{ position: 'absolute', top: -30, left: -20, width: '110%', height: '110%', backgroundColor: '#FFD700', clipPath: 'polygon(15% 0%, 100% 0%, 85% 100%, 0% 100%)', zIndex: -2 }} />
             <div style={{ position: 'absolute', top: -15, left: -35, width: '105%', height: '105%', backgroundColor: '#6B21C8', clipPath: 'polygon(0% 10%, 90% 0%, 100% 90%, 10% 100%)', zIndex: -1 }} />
             
@@ -179,11 +171,10 @@ export default async function HomePage() {
 
       <BarraMundial height={16} />
 
-      {/* ── SECCIÓN ÁLBUMES & COLECCIONES CON SEPARADORES ANGULARES ── */}
+      {/* ── SECCIÓN ÁLBUMES & COLECCIONES ── */}
       <section id="campanas" style={{ padding: '8rem 1.5rem', position: 'relative', zIndex: 1, backgroundColor: '#ffffff' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           
-          {/* Cabecera estilo Bloque de Título del Afiche */}
           <div style={{ marginBottom: '5rem', borderBottom: '4px solid #000000', paddingBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 24 }}>
             <div style={{ transform: 'skewX(-8deg)' }}>
               <div style={{ ...DISPLAY, fontSize: 15, fontWeight: 900, letterSpacing: '0.25em', color: '#E8003D', marginBottom: 8 }}>PANEL DE CONTROL</div>
@@ -196,7 +187,6 @@ export default async function HomePage() {
             </div>
           </div>
           
-          {/* Grilla con inclinaciones asimétricas sutiles en las sombras */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: 36 }}>
             {CAMPANAS.map((c, idx) => (
               <div className="campana-card" key={c.id} style={{ 
@@ -215,7 +205,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── SECCIÓN PROCESO (CORTES POLIGONALES PASO A PASO) ── */}
+      {/* ── SECCIÓN PROCESO (CORTES POLIGONALES PASO A PASO) ── CORREGIDA */}
       <section id="servicios" style={{ 
         padding: '9rem 1.5rem', 
         backgroundColor: '#ffffff', 
@@ -233,17 +223,17 @@ export default async function HomePage() {
             <h2 style={{ ...DISPLAY, fontSize: 'clamp(42px, 6.5vw, 76px)', fontWeight: 900, textTransform: 'uppercase', lineHeight: 0.85, color: '#000000' }}>
               PROCESO DE RELLENO EN <span style={{ color: '#E8003D' }}>3 PASOS</span>
             </h2>
-            <p style={{ fontSize: 17, color: '#374151', marginTop: 20, fontWeight: 600, transform: 'skewX(6deg)' }}>
+            <p style={{ fontSize: 17, color: '#374151', marginTop: 20, fontWeight: 600, transform: 'skewX(6deg)', transformOrigin: 'left' }}>
               Monitorea tus colecciones desde nuestra plataforma digital y recíbelas de forma rápida y empaquetada.
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 40 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 48 }}>
             {[
               { 
                 num: '26', 
                 step: '01',
-                imgSrc: '/images/paso-lista.png',
+                imgSrc: '/selecciona.png',
                 titulo: 'Checklist Digital', 
                 desc: 'Registra tus faltantes seleccionando los casilleros de tu álbum. La plataforma calcula tu porcentaje exacto de completado automáticamente.',
                 color: '#E8003D',
@@ -252,7 +242,7 @@ export default async function HomePage() {
               { 
                 num: '26', 
                 step: '02',
-                imgSrc: '/images/paso-whatsapp.png',
+                imgSrc: '/pide.jfif',
                 titulo: 'Orden Relámpago', 
                 desc: 'El algoritmo agrupa y organiza tus códigos de menor a mayor, enviando un formato limpio e impecable directo a nuestro canal de WhatsApp.',
                 color: '#00C2E0',
@@ -261,19 +251,19 @@ export default async function HomePage() {
               { 
                 num: '26', 
                 step: '03',
-                imgSrc: '/images/paso-entrega.png',
+                imgSrc: '/delivery.png',
                 titulo: 'Despacho Foil Protegido', 
                 desc: 'Separamos tu lote de figuritas directo de nuestro inventario y coordinamos envíos locales o nacionales con empaques rígidos antiflexión.',
                 color: '#6B21C8',
                 clip: 'polygon(0% 0%, 100% 0%, 100% 85%, 0% 100%)'
               },
-            ].map((s, index) => (
-              <div key={s.step} style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem', position: 'relative' }}>
+            ].map((s) => (
+              <div key={s.step} style={{ display: 'flex', flexDirection: 'column', gap: '2rem', position: 'relative' }}>
                 
-                {/* Contenedor con Cortes Poligonales Reales Asimétricos (Estilo Posters de Ciudades FIFA) */}
+                {/* Contenedor de Imagen de Alto Impacto */}
                 <div style={{ 
                   width: '100%', 
-                  height: 300, 
+                  height: 320, 
                   backgroundColor: '#ffffff', 
                   border: '4px solid #000000', 
                   clipPath: s.clip,
@@ -281,34 +271,36 @@ export default async function HomePage() {
                   position: 'relative',
                   boxShadow: `8px 8px 0px ${s.color}`
                 }}>
-                  {/* Número "26" Masivo superpuesto cortado verticalmente */}
+                  {/* Número "26" Masivo de Fondo */}
                   <div style={{ 
                     ...DISPLAY, 
                     position: 'absolute', 
-                    bottom: '-60px', 
-                    right: '-20px', 
-                    fontSize: 270, 
+                    bottom: '-40px', 
+                    right: '-10px', 
+                    fontSize: 260, 
                     fontWeight: 900, 
                     color: s.color, 
-                    opacity: 0.18, 
+                    opacity: 0.22, 
                     lineHeight: 1,
                     userSelect: 'none',
-                    transform: 'skewX(-10deg)'
+                    transform: 'skewX(-10deg)',
+                    zIndex: 1
                   }}>{s.num}</div>
 
-                  {/* Tag Flotante de Paso */}
-                  <div style={{ ...DISPLAY, position: 'absolute', top: 20, left: 20, background: '#000000', color: '#ffffff', padding: '6px 16px', fontSize: 15, fontWeight: 900, letterSpacing: '0.08em', transform: 'skewX(-12deg)' }}>
+                  {/* Tag de Paso */}
+                  <div style={{ ...DISPLAY, position: 'absolute', top: 20, left: 20, background: '#000000', color: '#ffffff', padding: '8px 18px', fontSize: 14, fontWeight: 900, letterSpacing: '0.08em', transform: 'skewX(-12deg)', zIndex: 10 }}>
                     PASO {s.step}
                   </div>
 
-                  <img src={s.imgSrc} alt={s.titulo} style={{ width: '100%', height: '100%', objectFit: 'cover', mixBlendMode: 'multiply' }} />
+                  <img src={s.imgSrc} alt={s.titulo} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
                 </div>
 
-                <div style={{ paddingRight: '1rem' }}>
-                  <h3 style={{ ...DISPLAY, fontSize: 30, fontWeight: 900, color: '#000000', textTransform: 'uppercase', marginBottom: '0.6rem', letterSpacing: '-0.02em', transform: 'skewX(-6deg)' }}>
+                {/* Textos de descripción robustos y bien espaciados */}
+                <div style={{ paddingRight: '0.5rem' }}>
+                  <h3 style={{ ...DISPLAY, fontSize: 32, fontWeight: 900, color: '#000000', textTransform: 'uppercase', marginBottom: '0.8rem', letterSpacing: '-0.02em', transform: 'skewX(-6deg)', transformOrigin: 'left' }}>
                     {s.titulo}
                   </h3>
-                  <p style={{ fontSize: 15, color: '#374151', lineHeight: 1.6, fontWeight: 600 }}>
+                  <p style={{ fontSize: 16, color: '#374151', lineHeight: 1.6, fontWeight: 600 }}>
                     {s.desc}
                   </p>
                 </div>
@@ -319,7 +311,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── SECCIÓN NOSOTROS (DISEÑO BLOQUES CRUZADOS GEOMÉTRICOS) ── */}
+      {/* ── SECCIÓN NOSOTROS ── */}
       <section id="nosotros" style={{ padding: '8rem 1.5rem', background: '#ffffff', position: 'relative', zIndex: 1 }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '6rem', alignItems: 'center' }}>
           
@@ -337,7 +329,6 @@ export default async function HomePage() {
               Mantenemos bases de datos actualizadas con las licencias oficiales más codiciadas, asegurando un centro de distribución óptimo para coleccionistas exigentes en todo el país.
             </p>
             
-            {/* Bloques de Estadísticas Estilo Módulos Independientes Cruzados */}
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
               {[
                 { num: '+500', label: 'Usuarios', border: '#E8003D', rot: '-2deg' },
@@ -353,8 +344,6 @@ export default async function HomePage() {
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 36 }}>
-            
-            {/* Contenedor Gráfico Cortado Diagonalmente */}
             <div style={{ 
               width: '100%', 
               height: 300, 
@@ -366,7 +355,7 @@ export default async function HomePage() {
               transform: 'rotate(-1deg)'
             }}>
               <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.4))', zIndex: 1 }} />
-              <img src="/images/nosotros-figuritas.png" alt="Álbumes y cartas coleccionables" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/img_panini.avif" alt="Álbumes y cartas coleccionables" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
@@ -389,7 +378,7 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* ── BLOQUE INFERIOR (CTA IMPACTANTE ESTILO CORTE POSTER FIFA) ── */}
+      {/* ── BLOQUE INFERIOR CTA ── */}
       <div style={{ 
         backgroundColor: '#ffffff', 
         borderTop: '4px solid #000000', 
@@ -402,12 +391,9 @@ export default async function HomePage() {
         zIndex: 10
       }}>
         
-        {/* Línea divisoria inclinada en lugar de recta */}
         <div style={{ position: 'absolute', top: -5, left: '0', width: '100%', height: '10px', background: 'linear-gradient(95deg, #E8003D, #6B21C8, #00C2E0, #FFD700)' }} />
 
-        {/* CTA CON ARTE URBANO/DEPORTIVO DE ALTO IMPACTO */}
         <section style={{ padding: '9rem 1.5rem 7rem 1.5rem', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-          {/* Formas abstractas gigantes cruzando el bloque del CTA final */}
           <div style={{ position: 'absolute', top: '0', left: '-10%', width: '40%', height: '100%', backgroundColor: '#6B21C8', clipPath: 'polygon(0 0, 100% 0, 60% 100%, 0 100%)', opacity: 0.03, pointerEvents: 'none' }} />
           <div style={{ position: 'absolute', top: '0', right: '-10%', width: '40%', height: '100%', backgroundColor: '#E8003D', clipPath: 'polygon(40% 0, 100% 0, 100% 100%, 0 100%)', opacity: 0.03, pointerEvents: 'none' }} />
 
@@ -458,7 +444,7 @@ export default async function HomePage() {
           </div>
         </section>
 
-        {/* FOOTER TOTALMENTE UNIFICADO */}
+        {/* FOOTER */}
         <footer style={{ borderTop: '4px solid #000000', padding: '4rem 2rem', width: '100%', backgroundColor: '#ffffff' }}>
           <div style={{ maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '2.5rem' }}>
             <span style={{ ...DISPLAY, fontSize: 34, fontWeight: 900, color: '#000000', letterSpacing: '0.04em', transform: 'skewX(-8deg)', display: 'inline-block' }}>TAOFANS</span>
